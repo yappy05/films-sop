@@ -1,0 +1,11 @@
+edu/rutmiit/demo/events/FilmEvent$Created.class
+edu/rutmiit/demo/events/DirectorEvent.class
+edu/rutmiit/demo/events/DirectorEvent$Created.class
+edu/rutmiit/demo/events/FilmEvent$Deleted.class
+edu/rutmiit/demo/events/FilmEvent$Updated.class
+edu/rutmiit/demo/events/DirectorEvent$Deleted.class
+edu/rutmiit/demo/events/RoutingKeys.class
+edu/rutmiit/demo/events/FilmEvent$Enriched.class
+edu/rutmiit/demo/events/EventEnvelope.class
+edu/rutmiit/demo/events/FilmEvent.class
+edu/rutmiit/demo/events/EventMetadata.class

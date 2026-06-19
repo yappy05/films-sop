@@ -1,0 +1,5 @@
+/Users/sergey/Documents/films-all/grpc-enrichment-client/src/main/java/edu/rutmiit/demo/grpcenrichment/GrpcEnrichmentClientApplication.java
+/Users/sergey/Documents/films-all/grpc-enrichment-client/src/main/java/edu/rutmiit/demo/grpcenrichment/config/GrpcClientConfig.java
+/Users/sergey/Documents/films-all/grpc-enrichment-client/src/main/java/edu/rutmiit/demo/grpcenrichment/config/RabbitMQConfig.java
+/Users/sergey/Documents/films-all/grpc-enrichment-client/src/main/java/edu/rutmiit/demo/grpcenrichment/listener/FilmCreatedListener.java
+/Users/sergey/Documents/films-all/grpc-enrichment-client/src/main/java/edu/rutmiit/demo/grpcenrichment/publisher/EnrichmentEventPublisher.java

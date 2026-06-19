@@ -1,0 +1,6 @@
+edu/rutmiit/demo/auditservice/controller/AuditController.class
+edu/rutmiit/demo/auditservice/AuditServiceApplication.class
+edu/rutmiit/demo/auditservice/listener/AuditEventListener.class
+edu/rutmiit/demo/auditservice/storage/AuditStorage.class
+edu/rutmiit/demo/auditservice/model/AuditEntry.class
+edu/rutmiit/demo/auditservice/config/RabbitMQConfig.class

@@ -1,0 +1,5 @@
+edu/rutmiit/demo/grpcenrichment/GrpcEnrichmentClientApplication.class
+edu/rutmiit/demo/grpcenrichment/config/RabbitMQConfig.class
+edu/rutmiit/demo/grpcenrichment/publisher/EnrichmentEventPublisher.class
+edu/rutmiit/demo/grpcenrichment/listener/FilmCreatedListener.class
+edu/rutmiit/demo/grpcenrichment/config/GrpcClientConfig.class

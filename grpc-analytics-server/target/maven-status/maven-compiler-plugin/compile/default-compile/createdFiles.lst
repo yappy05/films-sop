@@ -1,0 +1,3 @@
+edu/rutmiit/demo/grpcanalytics/service/FilmAnalyticsServiceImpl.class
+edu/rutmiit/demo/grpcanalytics/GrpcAnalyticsServerApplication.class
+edu/rutmiit/demo/grpcanalytics/config/GrpcServerLifecycle.class
