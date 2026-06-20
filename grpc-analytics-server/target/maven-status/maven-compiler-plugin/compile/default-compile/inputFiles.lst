@@ -1,3 +1,3 @@
-/Users/sergey/Documents/films-all/grpc-analytics-server/src/main/java/edu/rutmiit/demo/grpcanalytics/GrpcAnalyticsServerApplication.java
-/Users/sergey/Documents/films-all/grpc-analytics-server/src/main/java/edu/rutmiit/demo/grpcanalytics/config/GrpcServerLifecycle.java
-/Users/sergey/Documents/films-all/grpc-analytics-server/src/main/java/edu/rutmiit/demo/grpcanalytics/service/FilmAnalyticsServiceImpl.java
+/Users/sergey/Documents/films-sop/grpc-analytics-server/src/main/java/edu/rutmiit/demo/grpcanalytics/GrpcAnalyticsServerApplication.java
+/Users/sergey/Documents/films-sop/grpc-analytics-server/src/main/java/edu/rutmiit/demo/grpcanalytics/config/GrpcServerLifecycle.java
+/Users/sergey/Documents/films-sop/grpc-analytics-server/src/main/java/edu/rutmiit/demo/grpcanalytics/service/FilmAnalyticsServiceImpl.java

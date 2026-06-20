@@ -5,15 +5,6 @@ import jakarta.validation.Payload;
 
 import java.lang.annotation.*;
 
-/**
- * Аннотация для валидации IMDb ID (формат tt1234567).
- *
- * null и пустая строка считаются корректными: за обязательность отвечает @NotBlank.
- *
- * Примеры валидных значений:
- *   tt1375666  — Inception
- *   tt0468569  — The Dark Knight
- */
 @Documented
 @Constraint(validatedBy = ImdbIdValidator.class)
 @Target({ElementType.FIELD, ElementType.PARAMETER})

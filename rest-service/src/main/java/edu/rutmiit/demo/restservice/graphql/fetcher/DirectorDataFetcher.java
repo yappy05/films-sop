@@ -13,15 +13,6 @@ import edu.rutmiit.demo.restservice.graphql.types.PageInfoGql;
 import edu.rutmiit.demo.restservice.graphql.types.UpdateDirectorInputGql;
 import edu.rutmiit.demo.restservice.service.DirectorService;
 
-/**
- * DataFetcher для операций с режиссёрами.
- *
- * Обрабатывает корневые поля Query и Mutation, связанные с режиссёрами.
- * Вложенные поля (Director.films) обрабатываются в DirectorFilmsDataFetcher.
- *
- * Принцип разделения: один DataFetcher — одна группа связанных операций.
- * Это делает код более читаемым и тестируемым.
- */
 @DgsComponent
 public class DirectorDataFetcher {
 
@@ -31,19 +22,11 @@ public class DirectorDataFetcher {
         this.directorService = directorService;
     }
 
-    /**
-     * Получение режиссёра по идентификатору.
-     * Соответствует полю Query.director(id: ID!) в схеме.
-     */
     @DgsQuery
     public DirectorResponse director(@InputArgument String id) {
         return directorService.findById(Long.parseLong(id));
     }
 
-    /**
-     * Список режиссёров с пагинацией.
-     * Соответствует полю Query.directors(page, size) в схеме.
-     */
     @DgsQuery
     public DirectorConnectionGql directors(
             @InputArgument Integer page,
@@ -60,10 +43,6 @@ public class DirectorDataFetcher {
                 (int) paged.totalElements());
     }
 
-    /**
-     * Создание режиссёра.
-     * Соответствует полю Mutation.createDirector(input) в схеме.
-     */
     @DgsMutation
     public DirectorResponse createDirector(@InputArgument CreateDirectorInputGql input) {
         DirectorRequest request = new DirectorRequest(
@@ -77,10 +56,6 @@ public class DirectorDataFetcher {
         return directorService.create(request);
     }
 
-    /**
-     * Обновление режиссёра.
-     * Соответствует полю Mutation.updateDirector(id, input) в схеме.
-     */
     @DgsMutation
     public DirectorResponse updateDirector(@InputArgument String id, @InputArgument UpdateDirectorInputGql input) {
         DirectorRequest request = new DirectorRequest(
@@ -94,10 +69,6 @@ public class DirectorDataFetcher {
         return directorService.update(Long.parseLong(id), request);
     }
 
-    /**
-     * Удаление режиссёра и всех его фильмов (каскадно).
-     * Соответствует полю Mutation.deleteDirector(id) в схеме.
-     */
     @DgsMutation
     public boolean deleteDirector(@InputArgument String id) {
         directorService.delete(Long.parseLong(id));

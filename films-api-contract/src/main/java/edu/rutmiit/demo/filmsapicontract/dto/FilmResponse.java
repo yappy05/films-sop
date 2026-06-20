@@ -10,13 +10,6 @@ import org.springframework.hateoas.server.core.Relation;
 
 import java.time.LocalDateTime;
 
-/**
- * Данные фильма в ответе API.
- *
- * Расширяет RepresentationModel для поддержки HATEOAS-ссылок — поэтому здесь
- * обычный класс с Lombok, а не record.
- * Поля со значением null не попадают в JSON ответа.
- */
 @Getter
 @Builder
 @EqualsAndHashCode(callSuper = false)

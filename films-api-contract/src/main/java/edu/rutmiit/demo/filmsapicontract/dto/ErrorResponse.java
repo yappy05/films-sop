@@ -6,13 +6,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import java.time.Instant;
 import java.util.List;
 
-/**
- * Стандартный ответ об ошибке по формату RFC 7807 Problem Details.
- *
- *   type — машиночитаемый идентификатор типа ошибки, клиент может программно на него реагировать.
- *   fieldErrors — список ошибок по отдельным полям, удобно для отображения форм.
- *   timestamp + instance — упрощают поиск ошибки в логах.
- */
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Schema(description = "Стандартный ответ об ошибке (RFC 7807 Problem Details)")
 public record ErrorResponse(
@@ -42,9 +35,6 @@ public record ErrorResponse(
         List<FieldError> fieldErrors
 ) {
 
-    /**
-     * Ошибка валидации конкретного поля запроса.
-     */
     @Schema(description = "Ошибка валидации поля")
     public record FieldError(
 

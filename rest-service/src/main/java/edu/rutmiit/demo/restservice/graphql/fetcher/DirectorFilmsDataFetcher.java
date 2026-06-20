@@ -11,26 +11,6 @@ import edu.rutmiit.demo.restservice.graphql.types.FilmConnectionGql;
 import edu.rutmiit.demo.restservice.graphql.types.PageInfoGql;
 import edu.rutmiit.demo.restservice.service.FilmService;
 
-/**
- * Вложенный резолвер для поля Director.films.
- *
- * Срабатывает когда клиент запрашивает фильмы режиссёра:
- *
- *   query {
- *     director(id: "1") {
- *       fullName
- *       films(page: 0, size: 5) {    ← этот резолвер
- *         content {
- *           title
- *         }
- *         totalElements
- *       }
- *     }
- *   }
- *
- * Демонстрирует работу с аргументами вложенного поля (page, size)
- * и доступ к родительскому объекту (Director).
- */
 @DgsComponent
 public class DirectorFilmsDataFetcher {
 
@@ -40,12 +20,6 @@ public class DirectorFilmsDataFetcher {
         this.filmService = filmService;
     }
 
-    /**
-     * Загружает фильмы указанного режиссёра с пагинацией.
-     *
-     * Аргументы (page, size) берутся из GraphQL-запроса через @InputArgument.
-     * Родительский объект (Director) берётся из DgsDataFetchingEnvironment.
-     */
     @DgsData(parentType = "Director", field = "films")
     public FilmConnectionGql films(
             DgsDataFetchingEnvironment dfe,
@@ -57,7 +31,6 @@ public class DirectorFilmsDataFetcher {
         int pageNum = page != null ? page : 0;
         int pageSize = size != null ? size : 20;
 
-        // Фильтруем фильмы по ID режиссёра — переиспользуем сервис
         PagedResponse<FilmResponse> paged = filmService.findAllFilms(
                 director.getId(), null, null, null, pageNum, pageSize);
 

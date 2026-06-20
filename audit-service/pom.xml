@@ -20,38 +20,32 @@
 
     <dependencies>
 
-        <!-- Spring AMQP — интеграция с RabbitMQ (consumer) -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-amqp</artifactId>
         </dependency>
 
-        <!-- Web-стартер — REST endpoint для просмотра аудит-лога -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
 
-        <!-- Actuator — health-проверки, включая RabbitMQ connection health -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-actuator</artifactId>
         </dependency>
 
-        <!-- Контракт доменных событий — общий между publisher и consumer -->
         <dependency>
             <groupId>edu.rutmiit.demo</groupId>
             <artifactId>films-events-contract</artifactId>
             <version>1.0</version>
         </dependency>
 
-        <!-- Jackson — сериализация/десериализация JSON в RabbitMQ-сообщениях -->
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
         </dependency>
 
-        <!-- Поддержка java.time (Instant, LocalDateTime) в Jackson -->
         <dependency>
             <groupId>com.fasterxml.jackson.datatype</groupId>
             <artifactId>jackson-datatype-jsr310</artifactId>

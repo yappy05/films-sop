@@ -6,18 +6,6 @@ import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.Size;
 
-/**
- * Запрос для частичного обновления фильма (PATCH, семантика JSON Merge Patch).
- *
- * Передайте только те поля, которые нужно изменить.
- * Поля, отсутствующие в запросе, десериализуются как null — сервис их не трогает.
- *
- * Ограничение: стандартный Jackson не различает «поле не пришло» и «пришло явно null».
- * В этом контракте оба случая означают «не менять». Для точного различения
- * можно использовать JsonNullable из библиотеки jackson-databind-nullable.
- *
- * Сменить режиссёра через PATCH нельзя — для этого создайте новый фильм.
- */
 @Schema(description = "Частичное обновление фильма (PATCH). Передайте только те поля, которые нужно изменить. "
         + "Непереданные поля остаются без изменений.")
 public record PatchFilmRequest(

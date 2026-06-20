@@ -4,12 +4,6 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <!--
-        Контракт доменных событий — чистая Java-библиотека (.jar).
-        Не зависит от Spring и Jackson — только Java records и sealed interfaces.
-        Используется двумя сторонами: publisher (rest-service) и consumer (audit-service).
-    -->
-
     <groupId>edu.rutmiit.demo</groupId>
     <artifactId>films-events-contract</artifactId>
     <version>1.0</version>
@@ -21,7 +15,5 @@
         <maven.compiler.target>21</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
-
-    <!-- Зависимостей нет: контракт событий — чистые Java records, без фреймворков -->
 
 </project>

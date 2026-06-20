@@ -11,34 +11,16 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import tools.jackson.databind.json.JsonMapper;
 
-/**
- * Конфигурация RabbitMQ для enrichment-клиента.
- *
- * Этот сервис одновременно и consumer (слушает film.created),
- * и publisher (публикует film.enriched). Поэтому конфигурация включает:
- * - Exchange (общий для всех сервисов)
- * - Очередь для приёма film.created
- * - DLQ для необработанных сообщений
- * - RabbitTemplate для публикации film.enriched
- *
- * Каждый consumer определяет свою очередь и привязку.
- * Enrichment-клиент слушает только film.created (не все события),
- * поэтому binding key = "film.created", а не "#".
- */
 @Configuration
 public class RabbitMQConfig {
 
     public static final String ENRICHMENT_QUEUE = "q.enrichment.film-created";
     public static final String ENRICHMENT_DLQ = "q.enrichment.film-created.dlq";
 
-    // JSON-конвертер
-
     @Bean
     public MessageConverter jsonMessageConverter(JsonMapper jsonMapper) {
         return new JacksonJsonMessageConverter(jsonMapper);
     }
-
-    // RabbitTemplate для публикации событий
 
     @Bean
     public RabbitTemplate rabbitTemplate(ConnectionFactory connectionFactory,
@@ -47,8 +29,6 @@ public class RabbitMQConfig {
         template.setMessageConverter(jsonMessageConverter);
         return template;
     }
-
-    // Listener Container Factory
 
     @Bean
     public SimpleRabbitListenerContainerFactory rabbitListenerContainerFactory(
@@ -59,11 +39,9 @@ public class RabbitMQConfig {
         factory.setMessageConverter(jsonMessageConverter);
         factory.setConcurrentConsumers(1);
         factory.setMaxConcurrentConsumers(3);
-        factory.setDefaultRequeueRejected(false); // при ошибке → DLQ
+        factory.setDefaultRequeueRejected(false);
         return factory;
     }
-
-    // Exchange
 
     @Bean
     public TopicExchange eventsExchange() {
@@ -73,8 +51,6 @@ public class RabbitMQConfig {
                 .build();
     }
 
-    // Dead Letter Exchange
-
     @Bean
     public DirectExchange deadLetterExchange() {
         return ExchangeBuilder
@@ -82,9 +58,6 @@ public class RabbitMQConfig {
                 .durable(true)
                 .build();
     }
-
-    // Очередь для film.created
-    // Только события создания фильмов — binding key "film.created" (не "#")
 
     @Bean
     public Queue enrichmentQueue() {
@@ -95,26 +68,17 @@ public class RabbitMQConfig {
                 .build();
     }
 
-    // Dead Letter Queue
-
     @Bean
     public Queue enrichmentDlq() {
         return QueueBuilder.durable(ENRICHMENT_DLQ).build();
     }
 
-    // Привязки
-
-    /**
-     * Привязка, только film.created и очередь enrichment.
-     * В отличие от audit-service (binding "#" — все события),
-     * enrichment-клиент подписан только на создание фильмов.
-     */
     @Bean
     public Binding enrichmentBinding(Queue enrichmentQueue, TopicExchange eventsExchange) {
         return BindingBuilder
                 .bind(enrichmentQueue)
                 .to(eventsExchange)
-                .with(RoutingKeys.FILM_CREATED); // только film.created
+                .with(RoutingKeys.FILM_CREATED);
     }
 
     @Bean

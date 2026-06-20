@@ -13,13 +13,6 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import java.time.Instant;
 import java.util.List;
 
-/**
- * Централизованная обработка исключений.
- *
- * <p>Преобразует доменные исключения в ответы формата RFC 7807 Problem Details
- * ({@link ErrorResponse}). Это обеспечивает единообразный, машиночитаемый формат
- * ошибок для всех клиентов API.
- */
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
@@ -88,7 +81,7 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ErrorResponse> handleAll(Exception ex, HttpServletRequest req) {
-        // Место для логирования: log.error("Unexpected error", ex);
+
         return ResponseEntity
                 .status(HttpStatus.INTERNAL_SERVER_ERROR)
                 .body(new ErrorResponse(
@@ -102,5 +95,3 @@ public class GlobalExceptionHandler {
                 ));
     }
 }
-
-

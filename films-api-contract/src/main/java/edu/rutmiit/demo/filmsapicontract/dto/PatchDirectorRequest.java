@@ -7,12 +7,6 @@ import jakarta.validation.constraints.Size;
 
 import java.time.LocalDate;
 
-/**
- * Запрос для частичного обновления режиссёра (PATCH, семантика JSON Merge Patch).
- *
- * Все поля необязательны. Передайте только то, что нужно изменить.
- * Поля, которые не переданы (null), сервис оставляет без изменений.
- */
 @Schema(description = "Частичное обновление режиссёра (PATCH). Передайте только те поля, которые нужно изменить.")
 public record PatchDirectorRequest(
 

@@ -10,13 +10,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import tools.jackson.databind.json.JsonMapper;
 
-/**
- * Конфигурация RabbitMQ для notification-service.
- *
- * Сервис чистый consumer и слушает все события (binding "#"),
- * чтобы отправлять их подключённым WebSocket-клиентам.
- *
- */
 @Configuration
 public class RabbitMQConfig {
 
@@ -37,7 +30,7 @@ public class RabbitMQConfig {
         factory.setMessageConverter(jsonMessageConverter);
         factory.setConcurrentConsumers(1);
         factory.setMaxConcurrentConsumers(3);
-        factory.setDefaultRequeueRejected(false); // при ошибке → DLQ
+        factory.setDefaultRequeueRejected(false);
         return factory;
     }
 
@@ -76,7 +69,7 @@ public class RabbitMQConfig {
         return BindingBuilder
                 .bind(notificationsQueue)
                 .to(eventsExchange)
-                .with(RoutingKeys.ALL_EVENTS); // "#" — все события
+                .with(RoutingKeys.ALL_EVENTS);
     }
 
     @Bean

@@ -5,9 +5,6 @@ import jakarta.validation.ConstraintValidatorContext;
 
 import java.util.regex.Pattern;
 
-/**
- * Проверяет, что строка является корректным IMDb ID (формат tt1234567).
- */
 public class ImdbIdValidator implements ConstraintValidator<ValidImdbId, String> {
 
     private static final Pattern IMDB_ID = Pattern.compile("^tt\\d{7,8}$", Pattern.CASE_INSENSITIVE);

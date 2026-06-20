@@ -9,11 +9,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.stereotype.Component;
 
-/**
- * Публикация доменных событий режиссёров в RabbitMQ.
- *
- * Аналогичен FilmEventPublisher — тот же fire-and-forget паттерн.
- */
 @Component
 public class DirectorEventPublisher {
 
@@ -26,9 +21,6 @@ public class DirectorEventPublisher {
         this.rabbitTemplate = rabbitTemplate;
     }
 
-    /**
-     * Публикует событие «режиссёр создан».
-     */
     public void publishCreated(DirectorResponse director) {
         var event = new DirectorEvent.Created(
                 director.getId(),
@@ -40,9 +32,6 @@ public class DirectorEventPublisher {
         send(RoutingKeys.DIRECTOR_CREATED, event);
     }
 
-    /**
-     * Публикует событие «режиссёр удалён» с количеством каскадно удалённых фильмов.
-     */
     public void publishDeleted(DirectorResponse director, int deletedFilmsCount) {
         var event = new DirectorEvent.Deleted(
                 director.getId(),

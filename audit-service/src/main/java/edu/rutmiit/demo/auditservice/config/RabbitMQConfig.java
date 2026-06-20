@@ -11,46 +11,17 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import tools.jackson.databind.json.JsonMapper;
 
-/**
- * Конфигурация RabbitMQ на стороне потребителя (consumer).
- *
- * Здесь определяем:
- * - формат сообщений (JSON через Jackson),
- * - exchange (точка обмена) и очереди,
- * - привязки (bindings) между exchange и очередями,
- * - Dead Letter Queue (DLQ) для необработанных сообщений.
- */
 @Configuration
 public class RabbitMQConfig {
 
-    // Имена очередей — каждый consumer обычно заводит свои очереди, не общие с другими сервисами.
-    // Имена начинаются с «q.» — принятое соглашение для RabbitMQ.
     public static final String AUDIT_QUEUE = "q.audit.events";
     public static final String AUDIT_DLQ = "q.audit.events.dlq";
 
-    // ────────────────────────────────────────────────────────────────────
-    // Сериализация: JSON через Jackson
-    // ────────────────────────────────────────────────────────────────────
-
-    /**
-     * Конвертер сообщений — превращает Java-объекты в JSON и обратно.
-     *
-     * JacksonJsonMessageConverter (Spring AMQP 4.0+) — замена устаревшему
-     * Jackson2JsonMessageConverter. Работает с Jackson 3, который стал
-     * стандартом в Spring Boot 4.
-     *
-     * Принимаем ObjectMapper из контекста Spring Boot — он уже настроен
-     * с поддержкой java.time (Instant, LocalDate) через автоконфигурацию.
-     */
     @Bean
     public MessageConverter jsonMessageConverter(JsonMapper jsonMapper) {
         return new JacksonJsonMessageConverter(jsonMapper);
     }
 
-    /**
-     * RabbitTemplate используется в тестах и мониторинге.
-     * Главное — подключить тот же Jackson-конвертер.
-     */
     @Bean
     public RabbitTemplate rabbitTemplate(ConnectionFactory connectionFactory,
                                          MessageConverter jsonMessageConverter) {
@@ -59,10 +30,6 @@ public class RabbitMQConfig {
         return template;
     }
 
-    /**
-     * Фабрика контейнеров для @RabbitListener — настраиваем JSON-конвертер
-     * и параллелизм (1 поток для учебной среды, в продакшене — больше).
-     */
     @Bean
     public SimpleRabbitListenerContainerFactory rabbitListenerContainerFactory(
             ConnectionFactory connectionFactory,
@@ -72,24 +39,11 @@ public class RabbitMQConfig {
         factory.setMessageConverter(jsonMessageConverter);
         factory.setConcurrentConsumers(1);
         factory.setMaxConcurrentConsumers(3);
-        // При ошибке десериализации сообщение попадёт в DLQ (настроено через x-dead-letter-exchange)
+
         factory.setDefaultRequeueRejected(false);
         return factory;
     }
 
-    // ────────────────────────────────────────────────────────────────────
-    // Топология: exchange → bindings → queues
-    // ────────────────────────────────────────────────────────────────────
-
-    /**
-     * Topic exchange — точка обмена, через которую проходят все доменные события.
-     *
-     * Topic exchange маршрутизирует сообщения по routing key:
-     * - "film.created"  → попадёт в очередь с binding key "film.*"
-     * - "director.deleted" → попадёт в очередь с binding key "#" (все события)
-     *
-     * durable=true: exchange выживает перезапуск RabbitMQ.
-     */
     @Bean
     public TopicExchange eventsExchange() {
         return ExchangeBuilder
@@ -98,16 +52,6 @@ public class RabbitMQConfig {
                 .build();
     }
 
-    /**
-     * Dead Letter Exchange — отдельный exchange для «мёртвых» сообщений.
-     *
-     * Сообщение попадает сюда, если:
-     * - consumer выбросил исключение (и requeue=false),
-     * - TTL сообщения истёк,
-     * - очередь переполнена.
-     *
-     * Direct exchange: маршрутизация по точному совпадению routing key.
-     */
     @Bean
     public DirectExchange deadLetterExchange() {
         return ExchangeBuilder
@@ -116,13 +60,6 @@ public class RabbitMQConfig {
                 .build();
     }
 
-    /**
-     * Основная очередь аудита — слушает ВСЕ доменные события (binding key "#").
-     *
-     * При ошибке обработки сообщение перенаправляется в DLQ через:
-     * - x-dead-letter-exchange — куда отправить,
-     * - x-dead-letter-routing-key — с каким routing key.
-     */
     @Bean
     public Queue auditQueue() {
         return QueueBuilder
@@ -132,12 +69,6 @@ public class RabbitMQConfig {
                 .build();
     }
 
-    /**
-     * Dead Letter Queue — очередь для сообщений, которые не удалось обработать.
-     *
-     * В промышленных системах DLQ мониторится: если в ней появились сообщения —
-     * это инцидент, требующий расследования. Без DLQ «битые» сообщения просто теряются.
-     */
     @Bean
     public Queue deadLetterQueue() {
         return QueueBuilder
@@ -145,15 +76,6 @@ public class RabbitMQConfig {
                 .build();
     }
 
-    /**
-     * Привязка основной очереди к topic exchange.
-     *
-     * Binding key "#" означает «все сообщения» — audit-service фиксирует всё.
-     *
-     * В продакшене можно создать несколько очередей с разными binding key:
-     * - q.audit.films с "film.*" — только события фильмов,
-     * - q.notification.directors с "director.created" — уведомления при создании режиссёра.
-     */
     @Bean
     public Binding auditBinding(Queue auditQueue, TopicExchange eventsExchange) {
         return BindingBuilder
@@ -162,9 +84,6 @@ public class RabbitMQConfig {
                 .with(RoutingKeys.ALL_EVENTS);
     }
 
-    /**
-     * Привязка DLQ к dead letter exchange.
-     */
     @Bean
     public Binding dlqBinding(Queue deadLetterQueue, DirectExchange deadLetterExchange) {
         return BindingBuilder

@@ -21,30 +21,22 @@
 
     <dependencies>
 
-        <!-- Spring Boot Web — для actuator и health endpoints -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
 
-        <!-- Actuator — health-проверки сервера -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-actuator</artifactId>
         </dependency>
 
-        <!-- gRPC-контракт — сгенерированные стабы из .proto -->
         <dependency>
             <groupId>edu.rutmiit.demo</groupId>
             <artifactId>films-grpc-contract</artifactId>
             <version>1.0</version>
         </dependency>
 
-        <!--
-            gRPC Netty Shaded — транспорт для gRPC-сервера.
-            "Shaded" означает, что Netty упакован внутри JAR с изменёнными пакетами,
-            чтобы не конфликтовать с другими версиями Netty в classpath.
-        -->
         <dependency>
             <groupId>io.grpc</groupId>
             <artifactId>grpc-netty-shaded</artifactId>

@@ -21,56 +21,44 @@
 
     <dependencies>
 
-        <!-- Spring Boot Web — для actuator и health endpoints -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
 
-        <!-- Spring AMQP — интеграция с RabbitMQ (consumer + publisher) -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-amqp</artifactId>
         </dependency>
 
-        <!-- Actuator — health-проверки -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-actuator</artifactId>
         </dependency>
 
-        <!-- gRPC-контракт — сгенерированные стабы из .proto -->
         <dependency>
             <groupId>edu.rutmiit.demo</groupId>
             <artifactId>films-grpc-contract</artifactId>
             <version>1.0</version>
         </dependency>
 
-        <!-- Контракт доменных событий — FilmEvent, EventEnvelope, RoutingKeys -->
         <dependency>
             <groupId>edu.rutmiit.demo</groupId>
             <artifactId>films-events-contract</artifactId>
             <version>1.0</version>
         </dependency>
 
-        <!--
-            gRPC Netty Shaded — транспорт для gRPC-клиента.
-            Тот же артефакт, что и у сервера — Netty используется и для
-            клиентских, и для серверных соединений.
-        -->
         <dependency>
             <groupId>io.grpc</groupId>
             <artifactId>grpc-netty-shaded</artifactId>
             <version>${grpc.version}</version>
         </dependency>
 
-        <!-- Jackson — сериализация/десериализация JSON в RabbitMQ-сообщениях -->
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
         </dependency>
 
-        <!-- Поддержка java.time (Instant, LocalDateTime) в Jackson -->
         <dependency>
             <groupId>com.fasterxml.jackson.datatype</groupId>
             <artifactId>jackson-datatype-jsr310</artifactId>

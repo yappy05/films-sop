@@ -17,10 +17,6 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-/**
- * Контракт API для управления режиссёрами.
- * Реализующий контроллер в сервисе должен имплементировать этот интерфейс.
- */
 @Tag(name = "Directors", description = "Управление режиссёрами книжного каталога")
 @RequestMapping(
         value = "/api/directors",

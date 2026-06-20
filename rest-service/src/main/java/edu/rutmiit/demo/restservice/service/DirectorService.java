@@ -62,7 +62,7 @@ public class DirectorService {
     }
 
     public DirectorResponse update(Long id, DirectorRequest request) {
-        DirectorResponse existing = findById(id); // Проверяем, что режиссёр существует
+        DirectorResponse existing = findById(id);
         String fullName = request.firstName() + " " + request.lastName();
         DirectorResponse updatedDirector = DirectorResponse.builder()
                 .id(id)
@@ -101,7 +101,6 @@ public class DirectorService {
     public void delete(Long id) {
         DirectorResponse director = findById(id);
 
-        // Считаем фильмы до каскадного удаления — для события аудита
         int filmsCount = (int) storage.films.values().stream()
                 .filter(b -> b.getDirector() != null && b.getDirector().getId().equals(id))
                 .count();

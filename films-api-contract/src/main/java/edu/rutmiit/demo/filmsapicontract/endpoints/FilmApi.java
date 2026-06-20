@@ -17,10 +17,6 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-/**
- * Контракт API для управления фильмми.
- * Реализующий контроллер в сервисе должен имплементировать этот интерфейс.
- */
 @Tag(name = "Films", description = "Управление фильмми в каталоге")
 @RequestMapping(
         value = "/api/films",
@@ -128,5 +124,3 @@ public interface FilmApi {
             @Parameter(description = "ID фильма", required = true, example = "1") @PathVariable Long id
     );
 }
-
-  

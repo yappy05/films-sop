@@ -6,13 +6,6 @@ import org.springframework.web.socket.config.annotation.EnableWebSocket;
 import org.springframework.web.socket.config.annotation.WebSocketConfigurer;
 import org.springframework.web.socket.config.annotation.WebSocketHandlerRegistry;
 
-/**
- * Конфигурация WebSocket — нативный Spring WebSocket.
- *
- * Регистрирует единственный endpoint: /ws/notifications
- * Клиент подключается через new WebSocket("ws://localhost:8084/ws/notifications")
- *
- */
 @Configuration
 @EnableWebSocket
 public class WebSocketConfig implements WebSocketConfigurer {
@@ -27,6 +20,6 @@ public class WebSocketConfig implements WebSocketConfigurer {
     public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
         registry
                 .addHandler(notificationHandler, "/ws/notifications")
-                .setAllowedOrigins("*"); // в продае тут нужно указать домены
+                .setAllowedOrigins("*");
     }
 }

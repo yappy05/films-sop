@@ -4,9 +4,6 @@ import edu.rutmiit.demo.filmsapicontract.validation.ValidImdbId;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.*;
 
-/**
- * DTO для создания нового фильма.
- */
 @Schema(description = "Запрос на создание фильма")
 public record FilmRequest(
 

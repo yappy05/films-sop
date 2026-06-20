@@ -5,10 +5,6 @@ import jakarta.validation.constraints.*;
 
 import java.time.LocalDate;
 
-/**
- * DTO для создания или полного обновления режиссёра (POST / PUT).
- * Все обязательные поля должны присутствовать.
- */
 @Schema(description = "Запрос на создание или полное обновление режиссёра")
 public record DirectorRequest(
 

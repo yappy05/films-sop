@@ -10,20 +10,6 @@ import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 
-/**
- * Публикация доменных событий фильмов в RabbitMQ.
- *
- * Паттерн: FilmService вызывает publish-метод ПОСЛЕ успешного завершения
- * бизнес-операции. Если RabbitMQ недоступен — событие логируется как ошибка,
- * но основная операция (создание/удаление фильма) НЕ откатывается.
- *
- * Это паттерн «fire-and-forget» — допустимая потеря события лучше,
- * чем отказ бизнес-операции из-за недоступности брокера.
- *
- * В промышленных системах для гарантированной доставки используют:
- * - Transactional Outbox (запись события в БД в одной транзакции с данными),
- * - Change Data Capture (Debezium/Kafka Connect).
- */
 @Component
 public class FilmEventPublisher {
 
@@ -36,9 +22,6 @@ public class FilmEventPublisher {
         this.rabbitTemplate = rabbitTemplate;
     }
 
-    /**
-     * Публикует событие «фильм создана».
-     */
     public void publishCreated(FilmResponse film) {
         var event = new FilmEvent.Created(
                 film.getId(),
@@ -52,9 +35,6 @@ public class FilmEventPublisher {
         send(RoutingKeys.FILM_CREATED, event);
     }
 
-    /**
-     * Публикует событие «фильм обновлена».
-     */
     public void publishUpdated(FilmResponse film) {
         var event = new FilmEvent.Updated(
                 film.getId(),
@@ -66,24 +46,11 @@ public class FilmEventPublisher {
         send(RoutingKeys.FILM_UPDATED, event);
     }
 
-    /**
-     * Публикует событие «фильм удалена».
-     */
     public void publishDeleted(Long filmId, String title) {
         var event = new FilmEvent.Deleted(filmId, title);
         send(RoutingKeys.FILM_DELETED, event);
     }
 
-    /**
-     * Отправляет событие в RabbitMQ, обёрнутое в EventEnvelope.
-     *
-     * convertAndSend:
-     * - 1й аргумент: имя exchange
-     * - 2й аргумент: routing key (определяет, в какие очереди попадёт сообщение)
-     * - 3й аргумент: объект, который Jackson сериализует в JSON
-     *
-     * try-catch гарантирует, что ошибка публикации не сломает основной бизнес-поток.
-     */
     private void send(String routingKey, FilmEvent event) {
         try {
             EventEnvelope<FilmEvent> envelope = EventEnvelope.wrap(event, SOURCE, routingKey);

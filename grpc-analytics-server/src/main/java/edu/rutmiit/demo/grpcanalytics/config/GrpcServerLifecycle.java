@@ -11,19 +11,6 @@ import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 
-/**
- * Конфигурация и управление жизненным циклом gRPC-сервера.
- *
- * Реализует SmartLifecycle — Spring-интерфейс для компонентов,
- * которые требуют управляемого запуска и остановки.
- *
- * SmartLifecycle практичнее @PostConstruct/@PreDestroy:
- * - @PostConstruct/@PreDestroy — слишком простой, нет контроля порядка и graceful shutdown
- * - SmartLifecycle — продвинутый подход с фазами, isRunning(), graceful stop
- *
- * gRPC Server — это самостоятельный сетевой сервер (отдельный от Tomcat/HTTP).
- * Он слушает свой порт (9090) и требует явного start()/shutdown().
- */
 @Component
 public class GrpcServerLifecycle implements SmartLifecycle {
 
@@ -35,17 +22,6 @@ public class GrpcServerLifecycle implements SmartLifecycle {
     private Server server;
     private boolean running = false;
 
-    /**
-     * Запуск gRPC-сервера.
-     *
-     * ServerBuilder — фабрика gRPC:
-     * - forPort(port) — на каком порту слушать
-     * - addService(serviceImpl) — регистрация реализации сервиса
-     * - build() — создание сервера (без запуска)
-     * - start() — начало приёма запросов
-     *
-     * Можно зарегистрировать несколько сервисов через несколько addService().
-     */
     @Override
     public void start() {
         try {
@@ -63,13 +39,6 @@ public class GrpcServerLifecycle implements SmartLifecycle {
         }
     }
 
-    /**
-     * Graceful shutdown — корректная остановка gRPC-сервера.
-     *
-     * shutdown() завершает приём новых запросов, но ждёт завершения текущих.
-     * В проде добавляют awaitTermination() с таймаутом,
-     * а затем shutdownNow() для принудительной остановки.
-     */
     @Override
     public void stop() {
         if (server != null) {
@@ -85,10 +54,6 @@ public class GrpcServerLifecycle implements SmartLifecycle {
         return running;
     }
 
-    /**
-     * Фаза запуска — чем меньше число, тем раньше стартует.
-     * Integer.MAX_VALUE — стартуем последними (после Spring контекста).
-     */
     @Override
     public int getPhase() {
         return Integer.MAX_VALUE;

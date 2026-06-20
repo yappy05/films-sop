@@ -1,5 +1,5 @@
-/Users/sergey/Documents/films-all/notification-service/src/main/java/edu/rutmiit/demo/notificationservice/NotificationServiceApplication.java
-/Users/sergey/Documents/films-all/notification-service/src/main/java/edu/rutmiit/demo/notificationservice/config/RabbitMQConfig.java
-/Users/sergey/Documents/films-all/notification-service/src/main/java/edu/rutmiit/demo/notificationservice/config/WebSocketConfig.java
-/Users/sergey/Documents/films-all/notification-service/src/main/java/edu/rutmiit/demo/notificationservice/listener/EventNotificationListener.java
-/Users/sergey/Documents/films-all/notification-service/src/main/java/edu/rutmiit/demo/notificationservice/websocket/NotificationWebSocketHandler.java
+/Users/sergey/Documents/films-sop/notification-service/src/main/java/edu/rutmiit/demo/notificationservice/NotificationServiceApplication.java
+/Users/sergey/Documents/films-sop/notification-service/src/main/java/edu/rutmiit/demo/notificationservice/config/RabbitMQConfig.java
+/Users/sergey/Documents/films-sop/notification-service/src/main/java/edu/rutmiit/demo/notificationservice/config/WebSocketConfig.java
+/Users/sergey/Documents/films-sop/notification-service/src/main/java/edu/rutmiit/demo/notificationservice/listener/EventNotificationListener.java
+/Users/sergey/Documents/films-sop/notification-service/src/main/java/edu/rutmiit/demo/notificationservice/websocket/NotificationWebSocketHandler.java

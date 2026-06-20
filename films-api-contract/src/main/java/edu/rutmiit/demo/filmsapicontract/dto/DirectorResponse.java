@@ -10,16 +10,9 @@ import org.springframework.hateoas.server.core.Relation;
 
 import java.time.LocalDate;
 
-/**
- * Данные режиссёра в ответе API.
- *
- * Расширяет RepresentationModel для поддержки HATEOAS-ссылок — поэтому здесь
- * обычный класс с Lombok, а не record (record не может расширять классы).
- * Поля со значением null не попадают в JSON ответа.
- */
 @Getter
 @Builder
-    @EqualsAndHashCode(callSuper = false) // не включаем HATEOAS-ссылки в сравнение equals
+    @EqualsAndHashCode(callSuper = false)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Relation(collectionRelation = "directors", itemRelation = "director")
 @Schema(description = "Информация об режиссёре")

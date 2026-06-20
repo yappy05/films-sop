@@ -9,39 +9,23 @@ public interface FilmAnalysisResponseOrBuilder extends
     com.google.protobuf.MessageOrBuilder {
 
   /**
-   * <pre>
-   * ID фильма (echo back)
-   * </pre>
-   *
    * <code>int64 film_id = 1;</code>
    * @return The filmId.
    */
   long getFilmId();
 
   /**
-   * <pre>
-   * Оценка времени чтения (в минутах)
-   * </pre>
-   *
    * <code>int32 estimated_reading_minutes = 2;</code>
    * @return The estimatedReadingMinutes.
    */
   int getEstimatedReadingMinutes();
 
   /**
-   * <pre>
-   * Уровень сложности: EASY, MEDIUM, HARD, CLASSIC
-   * </pre>
-   *
    * <code>string difficulty_level = 3;</code>
    * @return The difficultyLevel.
    */
   java.lang.String getDifficultyLevel();
   /**
-   * <pre>
-   * Уровень сложности: EASY, MEDIUM, HARD, CLASSIC
-   * </pre>
-   *
    * <code>string difficulty_level = 3;</code>
    * @return The bytes for difficultyLevel.
    */
@@ -49,29 +33,17 @@ public interface FilmAnalysisResponseOrBuilder extends
       getDifficultyLevelBytes();
 
   /**
-   * <pre>
-   * Рекомендательный балл (0.0 — 10.0)
-   * </pre>
-   *
    * <code>double recommendation_score = 4;</code>
    * @return The recommendationScore.
    */
   double getRecommendationScore();
 
   /**
-   * <pre>
-   * Эпоха: ANCIENT, CLASSICAL, MODERN, CONTEMPORARY
-   * </pre>
-   *
    * <code>string era_classification = 5;</code>
    * @return The eraClassification.
    */
   java.lang.String getEraClassification();
   /**
-   * <pre>
-   * Эпоха: ANCIENT, CLASSICAL, MODERN, CONTEMPORARY
-   * </pre>
-   *
    * <code>string era_classification = 5;</code>
    * @return The bytes for eraClassification.
    */

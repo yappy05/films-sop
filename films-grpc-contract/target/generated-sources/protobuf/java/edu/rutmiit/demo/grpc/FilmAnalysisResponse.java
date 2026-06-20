@@ -5,10 +5,6 @@
 package edu.rutmiit.demo.grpc;
 
 /**
- * <pre>
- * Ответ с результатами анализа — вычисленные метрики фильма.
- * </pre>
- *
  * Protobuf type {@code filmanalytics.FilmAnalysisResponse}
  */
 public final class FilmAnalysisResponse extends
@@ -48,10 +44,6 @@ private static final long serialVersionUID = 0L;
   public static final int FILM_ID_FIELD_NUMBER = 1;
   private long filmId_ = 0L;
   /**
-   * <pre>
-   * ID фильма (echo back)
-   * </pre>
-   *
    * <code>int64 film_id = 1;</code>
    * @return The filmId.
    */
@@ -63,10 +55,6 @@ private static final long serialVersionUID = 0L;
   public static final int ESTIMATED_READING_MINUTES_FIELD_NUMBER = 2;
   private int estimatedReadingMinutes_ = 0;
   /**
-   * <pre>
-   * Оценка времени чтения (в минутах)
-   * </pre>
-   *
    * <code>int32 estimated_reading_minutes = 2;</code>
    * @return The estimatedReadingMinutes.
    */
@@ -79,10 +67,6 @@ private static final long serialVersionUID = 0L;
   @SuppressWarnings("serial")
   private volatile java.lang.Object difficultyLevel_ = "";
   /**
-   * <pre>
-   * Уровень сложности: EASY, MEDIUM, HARD, CLASSIC
-   * </pre>
-   *
    * <code>string difficulty_level = 3;</code>
    * @return The difficultyLevel.
    */
@@ -100,10 +84,6 @@ private static final long serialVersionUID = 0L;
     }
   }
   /**
-   * <pre>
-   * Уровень сложности: EASY, MEDIUM, HARD, CLASSIC
-   * </pre>
-   *
    * <code>string difficulty_level = 3;</code>
    * @return The bytes for difficultyLevel.
    */
@@ -125,10 +105,6 @@ private static final long serialVersionUID = 0L;
   public static final int RECOMMENDATION_SCORE_FIELD_NUMBER = 4;
   private double recommendationScore_ = 0D;
   /**
-   * <pre>
-   * Рекомендательный балл (0.0 — 10.0)
-   * </pre>
-   *
    * <code>double recommendation_score = 4;</code>
    * @return The recommendationScore.
    */
@@ -141,10 +117,6 @@ private static final long serialVersionUID = 0L;
   @SuppressWarnings("serial")
   private volatile java.lang.Object eraClassification_ = "";
   /**
-   * <pre>
-   * Эпоха: ANCIENT, CLASSICAL, MODERN, CONTEMPORARY
-   * </pre>
-   *
    * <code>string era_classification = 5;</code>
    * @return The eraClassification.
    */
@@ -162,10 +134,6 @@ private static final long serialVersionUID = 0L;
     }
   }
   /**
-   * <pre>
-   * Эпоха: ANCIENT, CLASSICAL, MODERN, CONTEMPORARY
-   * </pre>
-   *
    * <code>string era_classification = 5;</code>
    * @return The bytes for eraClassification.
    */
@@ -387,10 +355,6 @@ private static final long serialVersionUID = 0L;
     return builder;
   }
   /**
-   * <pre>
-   * Ответ с результатами анализа — вычисленные метрики фильма.
-   * </pre>
-   *
    * Protobuf type {@code filmanalytics.FilmAnalysisResponse}
    */
   public static final class Builder extends
@@ -612,10 +576,6 @@ private static final long serialVersionUID = 0L;
 
     private long filmId_ ;
     /**
-     * <pre>
-     * ID фильма (echo back)
-     * </pre>
-     *
      * <code>int64 film_id = 1;</code>
      * @return The filmId.
      */
@@ -624,10 +584,6 @@ private static final long serialVersionUID = 0L;
       return filmId_;
     }
     /**
-     * <pre>
-     * ID фильма (echo back)
-     * </pre>
-     *
      * <code>int64 film_id = 1;</code>
      * @param value The filmId to set.
      * @return This builder for chaining.
@@ -640,10 +596,6 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <pre>
-     * ID фильма (echo back)
-     * </pre>
-     *
      * <code>int64 film_id = 1;</code>
      * @return This builder for chaining.
      */
@@ -656,10 +608,6 @@ private static final long serialVersionUID = 0L;
 
     private int estimatedReadingMinutes_ ;
     /**
-     * <pre>
-     * Оценка времени чтения (в минутах)
-     * </pre>
-     *
      * <code>int32 estimated_reading_minutes = 2;</code>
      * @return The estimatedReadingMinutes.
      */
@@ -668,10 +616,6 @@ private static final long serialVersionUID = 0L;
       return estimatedReadingMinutes_;
     }
     /**
-     * <pre>
-     * Оценка времени чтения (в минутах)
-     * </pre>
-     *
      * <code>int32 estimated_reading_minutes = 2;</code>
      * @param value The estimatedReadingMinutes to set.
      * @return This builder for chaining.
@@ -684,10 +628,6 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <pre>
-     * Оценка времени чтения (в минутах)
-     * </pre>
-     *
      * <code>int32 estimated_reading_minutes = 2;</code>
      * @return This builder for chaining.
      */
@@ -700,10 +640,6 @@ private static final long serialVersionUID = 0L;
 
     private java.lang.Object difficultyLevel_ = "";
     /**
-     * <pre>
-     * Уровень сложности: EASY, MEDIUM, HARD, CLASSIC
-     * </pre>
-     *
      * <code>string difficulty_level = 3;</code>
      * @return The difficultyLevel.
      */
@@ -720,10 +656,6 @@ private static final long serialVersionUID = 0L;
       }
     }
     /**
-     * <pre>
-     * Уровень сложности: EASY, MEDIUM, HARD, CLASSIC
-     * </pre>
-     *
      * <code>string difficulty_level = 3;</code>
      * @return The bytes for difficultyLevel.
      */
@@ -741,10 +673,6 @@ private static final long serialVersionUID = 0L;
       }
     }
     /**
-     * <pre>
-     * Уровень сложности: EASY, MEDIUM, HARD, CLASSIC
-     * </pre>
-     *
      * <code>string difficulty_level = 3;</code>
      * @param value The difficultyLevel to set.
      * @return This builder for chaining.
@@ -758,10 +686,6 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <pre>
-     * Уровень сложности: EASY, MEDIUM, HARD, CLASSIC
-     * </pre>
-     *
      * <code>string difficulty_level = 3;</code>
      * @return This builder for chaining.
      */
@@ -772,10 +696,6 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <pre>
-     * Уровень сложности: EASY, MEDIUM, HARD, CLASSIC
-     * </pre>
-     *
      * <code>string difficulty_level = 3;</code>
      * @param value The bytes for difficultyLevel to set.
      * @return This builder for chaining.
@@ -792,10 +712,6 @@ private static final long serialVersionUID = 0L;
 
     private double recommendationScore_ ;
     /**
-     * <pre>
-     * Рекомендательный балл (0.0 — 10.0)
-     * </pre>
-     *
      * <code>double recommendation_score = 4;</code>
      * @return The recommendationScore.
      */
@@ -804,10 +720,6 @@ private static final long serialVersionUID = 0L;
       return recommendationScore_;
     }
     /**
-     * <pre>
-     * Рекомендательный балл (0.0 — 10.0)
-     * </pre>
-     *
      * <code>double recommendation_score = 4;</code>
      * @param value The recommendationScore to set.
      * @return This builder for chaining.
@@ -820,10 +732,6 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <pre>
-     * Рекомендательный балл (0.0 — 10.0)
-     * </pre>
-     *
      * <code>double recommendation_score = 4;</code>
      * @return This builder for chaining.
      */
@@ -836,10 +744,6 @@ private static final long serialVersionUID = 0L;
 
     private java.lang.Object eraClassification_ = "";
     /**
-     * <pre>
-     * Эпоха: ANCIENT, CLASSICAL, MODERN, CONTEMPORARY
-     * </pre>
-     *
      * <code>string era_classification = 5;</code>
      * @return The eraClassification.
      */
@@ -856,10 +760,6 @@ private static final long serialVersionUID = 0L;
       }
     }
     /**
-     * <pre>
-     * Эпоха: ANCIENT, CLASSICAL, MODERN, CONTEMPORARY
-     * </pre>
-     *
      * <code>string era_classification = 5;</code>
      * @return The bytes for eraClassification.
      */
@@ -877,10 +777,6 @@ private static final long serialVersionUID = 0L;
       }
     }
     /**
-     * <pre>
-     * Эпоха: ANCIENT, CLASSICAL, MODERN, CONTEMPORARY
-     * </pre>
-     *
      * <code>string era_classification = 5;</code>
      * @param value The eraClassification to set.
      * @return This builder for chaining.
@@ -894,10 +790,6 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <pre>
-     * Эпоха: ANCIENT, CLASSICAL, MODERN, CONTEMPORARY
-     * </pre>
-     *
      * <code>string era_classification = 5;</code>
      * @return This builder for chaining.
      */
@@ -908,10 +800,6 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <pre>
-     * Эпоха: ANCIENT, CLASSICAL, MODERN, CONTEMPORARY
-     * </pre>
-     *
      * <code>string era_classification = 5;</code>
      * @param value The bytes for eraClassification to set.
      * @return This builder for chaining.

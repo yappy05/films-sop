@@ -7,39 +7,10 @@ import io.grpc.stub.StreamObserver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-/**
- * Реализация gRPC-сервиса FilmAnalytics.
- *
- * Наследует сгенерированный базовый класс FilmAnalyticsImplBase —
- * аналог того, как REST-контроллер реализует интерфейс контракта:
- *
- *   REST:    DirectorController implements DirectorApi
- *   GraphQL: FilmDataFetcher с @DgsQuery
- *   gRPC:    FilmAnalyticsServiceImpl extends FilmAnalyticsGrpc.FilmAnalyticsImplBase
- *
- * Ключевые отличия от REST/GraphQL:
- * - Бинарный протокол (protobuf) вместо JSON — компактнее и быстрее
- * - Строго типизированный контракт (.proto) — несовместимость обнаруживается при компиляции
- * - HTTP/2 с мультиплексированием — несколько запросов в одном TCP-соединении
- * - Поддержка streaming (server, client, bidirectional) — здесь используем unary (простой запрос-ответ)
- */
 public class FilmAnalyticsServiceImpl extends FilmAnalyticsGrpc.FilmAnalyticsImplBase {
 
     private static final Logger log = LoggerFactory.getLogger(FilmAnalyticsServiceImpl.class);
 
-    /**
-     * Обрабатывает запрос на анализ фильма.
-     *
-     * Паттерн gRPC: метод получает request и StreamObserver для ответа.
-     * StreamObserver — это callback-интерфейс:
-     *   - onNext(response) — отправить ответ (для unary RPC вызывается один раз)
-     *   - onCompleted()    — завершить RPC
-     *   - onError(t)       — сообщить об ошибке
-     *
-     * Для unary RPC (один запрос → один ответ) всегда:
-     *   responseObserver.onNext(response);
-     *   responseObserver.onCompleted();
-     */
     @Override
     public void analyzeFilm(AnalyzeFilmRequest request,
                             StreamObserver<FilmAnalysisResponse> responseObserver) {
@@ -48,13 +19,11 @@ public class FilmAnalyticsServiceImpl extends FilmAnalyticsGrpc.FilmAnalyticsImp
                 request.getFilmId(), request.getTitle(),
                 request.getGenre(), request.getPublishedYear());
 
-        // ─── Вычисление метрик (демонстрационная логика) ─────────────
         int readingMinutes = estimateReadingTime(request.getGenre(), request.getPublishedYear());
         String difficulty = classifyDifficulty(request.getGenre(), request.getPublishedYear());
         double score = calculateRecommendationScore(request.getGenre(), request.getPublishedYear());
         String era = classifyEra(request.getPublishedYear());
 
-        // ─── Формируем ответ ─────────────────────────────────────────
         FilmAnalysisResponse response = FilmAnalysisResponse.newBuilder()
                 .setFilmId(request.getFilmId())
                 .setEstimatedReadingMinutes(readingMinutes)
@@ -66,36 +35,26 @@ public class FilmAnalyticsServiceImpl extends FilmAnalyticsGrpc.FilmAnalyticsImp
         log.info("gRPC ответ: фильм id={}, время чтения={}мин, сложность={}, балл={}, эпоха={}",
                 response.getFilmId(), readingMinutes, difficulty, score, era);
 
-        // Отправляем ответ клиенту и завершаем RPC
         responseObserver.onNext(response);
         responseObserver.onCompleted();
     }
 
-    // ─── Демонстрационная бизнес-логика ──────────────────────────────
-
-    /**
-     * Оценка времени чтения на основе жанра.
-     * В реальном приложении — ML-модель или API внешнего сервиса.
-     */
     private int estimateReadingTime(String genre, int publishedYear) {
         int base = switch (genre != null ? genre.toLowerCase() : "") {
-            case "роман", "novel"       -> 720;   // ~12 часов
-            case "поэма", "poem"        -> 180;   // ~3 часа
-            case "пьеса", "drama"       -> 240;   // ~4 часа
-            case "рассказ", "story"     -> 60;    // ~1 час
-            case "эпопея", "epic"       -> 1440;  // ~24 часа
-            default                     -> 360;   // ~6 часов
+            case "роман", "novel"       -> 720;
+            case "поэма", "poem"        -> 180;
+            case "пьеса", "drama"       -> 240;
+            case "рассказ", "story"     -> 60;
+            case "эпопея", "epic"       -> 1440;
+            default                     -> 360;
         };
-        // Классика читается медленнее (архаичный язык)
+
         if (publishedYear > 0 && publishedYear < 1900) {
             base = (int) (base * 1.3);
         }
         return base;
     }
 
-    /**
-     * Классификация сложности текста.
-     */
     private String classifyDifficulty(String genre, int publishedYear) {
         if (publishedYear > 0 && publishedYear < 1800) return "CLASSIC";
         if (publishedYear >= 1800 && publishedYear < 1950) return "HARD";
@@ -103,21 +62,14 @@ public class FilmAnalyticsServiceImpl extends FilmAnalyticsGrpc.FilmAnalyticsImp
         return "EASY";
     }
 
-    /**
-     * Рекомендательный балл (0.0—10.0).
-     * Демонстрационная формула: классика получает высокий балл.
-     */
     private double calculateRecommendationScore(String genre, int publishedYear) {
         double base = 7.0;
-        if (publishedYear > 0 && publishedYear < 1900) base += 1.5;   // классика
+        if (publishedYear > 0 && publishedYear < 1900) base += 1.5;
         if ("роман".equalsIgnoreCase(genre) || "novel".equalsIgnoreCase(genre)) base += 0.5;
         if ("эпопея".equalsIgnoreCase(genre) || "epic".equalsIgnoreCase(genre)) base += 1.0;
         return Math.min(base, 10.0);
     }
 
-    /**
-     * Классификация эпохи по году публикации.
-     */
     private String classifyEra(int publishedYear) {
         if (publishedYear <= 0) return "UNKNOWN";
         if (publishedYear < 1600) return "ANCIENT";

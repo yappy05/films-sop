@@ -3,10 +3,6 @@ package edu.rutmiit.demo.grpc;
 import static io.grpc.MethodDescriptor.generateFullMethodName;
 
 /**
- * <pre>
- * Сервисы
- * Unary RPC - один запрос это один ответ (типа аналог REST GET/POST)
- * </pre>
  */
 @javax.annotation.Generated(
     value = "by gRPC proto compiler (version 1.66.0)",
@@ -95,17 +91,10 @@ public final class FilmAnalyticsGrpc {
   }
 
   /**
-   * <pre>
-   * Сервисы
-   * Unary RPC - один запрос это один ответ (типа аналог REST GET/POST)
-   * </pre>
    */
   public interface AsyncService {
 
     /**
-     * <pre>
-     * Анализирует фильм и возвращает вычисленные метрики
-     * </pre>
      */
     default void analyzeFilm(edu.rutmiit.demo.grpc.AnalyzeFilmRequest request,
         io.grpc.stub.StreamObserver<edu.rutmiit.demo.grpc.FilmAnalysisResponse> responseObserver) {
@@ -115,10 +104,6 @@ public final class FilmAnalyticsGrpc {
 
   /**
    * Base class for the server implementation of the service FilmAnalytics.
-   * <pre>
-   * Сервисы
-   * Unary RPC - один запрос это один ответ (типа аналог REST GET/POST)
-   * </pre>
    */
   public static abstract class FilmAnalyticsImplBase
       implements io.grpc.BindableService, AsyncService {
@@ -130,10 +115,6 @@ public final class FilmAnalyticsGrpc {
 
   /**
    * A stub to allow clients to do asynchronous rpc calls to service FilmAnalytics.
-   * <pre>
-   * Сервисы
-   * Unary RPC - один запрос это один ответ (типа аналог REST GET/POST)
-   * </pre>
    */
   public static final class FilmAnalyticsStub
       extends io.grpc.stub.AbstractAsyncStub<FilmAnalyticsStub> {
@@ -149,9 +130,6 @@ public final class FilmAnalyticsGrpc {
     }
 
     /**
-     * <pre>
-     * Анализирует фильм и возвращает вычисленные метрики
-     * </pre>
      */
     public void analyzeFilm(edu.rutmiit.demo.grpc.AnalyzeFilmRequest request,
         io.grpc.stub.StreamObserver<edu.rutmiit.demo.grpc.FilmAnalysisResponse> responseObserver) {
@@ -162,10 +140,6 @@ public final class FilmAnalyticsGrpc {
 
   /**
    * A stub to allow clients to do synchronous rpc calls to service FilmAnalytics.
-   * <pre>
-   * Сервисы
-   * Unary RPC - один запрос это один ответ (типа аналог REST GET/POST)
-   * </pre>
    */
   public static final class FilmAnalyticsBlockingStub
       extends io.grpc.stub.AbstractBlockingStub<FilmAnalyticsBlockingStub> {
@@ -181,9 +155,6 @@ public final class FilmAnalyticsGrpc {
     }
 
     /**
-     * <pre>
-     * Анализирует фильм и возвращает вычисленные метрики
-     * </pre>
      */
     public edu.rutmiit.demo.grpc.FilmAnalysisResponse analyzeFilm(edu.rutmiit.demo.grpc.AnalyzeFilmRequest request) {
       return io.grpc.stub.ClientCalls.blockingUnaryCall(
@@ -193,10 +164,6 @@ public final class FilmAnalyticsGrpc {
 
   /**
    * A stub to allow clients to do ListenableFuture-style rpc calls to service FilmAnalytics.
-   * <pre>
-   * Сервисы
-   * Unary RPC - один запрос это один ответ (типа аналог REST GET/POST)
-   * </pre>
    */
   public static final class FilmAnalyticsFutureStub
       extends io.grpc.stub.AbstractFutureStub<FilmAnalyticsFutureStub> {
@@ -212,9 +179,6 @@ public final class FilmAnalyticsGrpc {
     }
 
     /**
-     * <pre>
-     * Анализирует фильм и возвращает вычисленные метрики
-     * </pre>
      */
     public com.google.common.util.concurrent.ListenableFuture<edu.rutmiit.demo.grpc.FilmAnalysisResponse> analyzeFilm(
         edu.rutmiit.demo.grpc.AnalyzeFilmRequest request) {

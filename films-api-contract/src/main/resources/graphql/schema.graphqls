@@ -1,24 +1,7 @@
-# =============================================================================
-# GraphQL-контракт для Films API
-#
-# Эта схема описывает все доступные запросы (Query), мутации (Mutation) и типы.
-# По функциональности она полностью соответствует REST API: те же сущности,
-# те же операции (CRUD), те же фильтры и пагинация.
-#
-# Преимущество GraphQL — клиент сам выбирает, какие поля ему нужны.
-# Вложенные связи (Film → Director, Director → Films) разрешаются автоматически.
-# =============================================================================
 
-# Пользовательские скалярные типы для работы с датой и временем.
-# DGS преобразует их в java.time.LocalDateTime и java.time.LocalDate.
 scalar DateTime
 scalar Date
 
-# ---------------------------------------------------------------------------
-# Основные типы данных
-# ---------------------------------------------------------------------------
-
-# Режиссёр фильма — содержит биографическую информацию и список фильмов.
 type Director {
     id: ID!
     firstName: String!
@@ -30,12 +13,9 @@ type Director {
     nationality: String
     filmsCount: Int!
 
-    # Связь «один ко многим»: фильмы данного режиссёра с пагинацией.
-    # Резолвер загружает фильмы только если клиент запросил это поле.
     films(page: Int = 0, size: Int = 20): FilmConnection!
 }
 
-# Фильм — основная сущность каталога.
 type Film {
     id: ID!
     title: String!
@@ -47,30 +27,21 @@ type Film {
     createdAt: DateTime
     updatedAt: DateTime
 
-    # Связь «многие к одному»: режиссёр фильмы.
-    # Резолвер загружает режиссёра только если клиент запросил это поле.
     director: Director!
 }
 
-# ---------------------------------------------------------------------------
-# Типы для пагинации
-# ---------------------------------------------------------------------------
-
-# Постраничная коллекция фильмов.
 type FilmConnection {
     content: [Film!]!
     pageInfo: PageInfo!
     totalElements: Int!
 }
 
-# Постраничная коллекция режиссёров.
 type DirectorConnection {
     content: [Director!]!
     pageInfo: PageInfo!
     totalElements: Int!
 }
 
-# Метаданные страницы — номер, размер, общее число страниц.
 type PageInfo {
     pageNumber: Int!
     pageSize: Int!
@@ -78,11 +49,6 @@ type PageInfo {
     last: Boolean!
 }
 
-# ---------------------------------------------------------------------------
-# Входные типы для мутаций
-# ---------------------------------------------------------------------------
-
-# Создание нового фильма. Все обязательные поля совпадают с REST FilmRequest.
 input CreateFilmInput {
     title: String!
     imdbId: String!
@@ -93,7 +59,6 @@ input CreateFilmInput {
     language: String
 }
 
-# Полное обновление фильма. Режиссёра изменить нельзя (как и в REST PUT).
 input UpdateFilmInput {
     title: String!
     imdbId: String!
@@ -103,7 +68,6 @@ input UpdateFilmInput {
     language: String
 }
 
-# Создание или полное обновление режиссёра.
 input CreateDirectorInput {
     firstName: String!
     lastName: String!
@@ -113,7 +77,6 @@ input CreateDirectorInput {
     nationality: String
 }
 
-# Полное обновление режиссёра — все поля как при создании.
 input UpdateDirectorInput {
     firstName: String!
     lastName: String!
@@ -123,7 +86,6 @@ input UpdateDirectorInput {
     nationality: String
 }
 
-# Фильтрация фильмов — аналог query-параметров в REST GET /api/films.
 input FilmFilter {
     directorId: ID
     genre: String
@@ -131,40 +93,28 @@ input FilmFilter {
     titleSearch: String
 }
 
-# ---------------------------------------------------------------------------
-# Корневые точки входа: запросы и мутации
-# ---------------------------------------------------------------------------
-
 type Query {
-    # Получить фильм по идентификатору. Возвращает null если не найдена.
+
     film(id: ID!): Film
 
-    # Список фильмов с фильтрацией и пагинацией.
     films(filter: FilmFilter, page: Int = 0, size: Int = 20): FilmConnection!
 
-    # Получить режиссёра по идентификатору. Возвращает null если не найден.
     director(id: ID!): Director
 
-    # Список режиссёров с пагинацией.
     directors(page: Int = 0, size: Int = 20): DirectorConnection!
 }
 
 type Mutation {
-    # Создать фильм. Режиссёр с указанным directorId должен существовать.
+
     createFilm(input: CreateFilmInput!): Film!
 
-    # Полностью обновить фильм. Режиссёра изменить нельзя.
     updateFilm(id: ID!, input: UpdateFilmInput!): Film!
 
-    # Удалить фильм. Возвращает true при успехе.
     deleteFilm(id: ID!): Boolean!
 
-    # Создать режиссёра.
     createDirector(input: CreateDirectorInput!): Director!
 
-    # Полностью обновить режиссёра.
     updateDirector(id: ID!, input: UpdateDirectorInput!): Director!
 
-    # Удалить режиссёра и все его фильмы (каскадно). Возвращает true при успехе.
     deleteDirector(id: ID!): Boolean!
 }

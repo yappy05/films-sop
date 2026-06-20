@@ -5,10 +5,6 @@
 package edu.rutmiit.demo.grpc;
 
 /**
- * <pre>
- * Запрос на анализ фильма — данные, необходимые для вычисления метрик.
- * </pre>
- *
  * Protobuf type {@code filmanalytics.AnalyzeFilmRequest}
  */
 public final class AnalyzeFilmRequest extends
@@ -50,10 +46,6 @@ private static final long serialVersionUID = 0L;
   public static final int FILM_ID_FIELD_NUMBER = 1;
   private long filmId_ = 0L;
   /**
-   * <pre>
-   * ID фильма в системе
-   * </pre>
-   *
    * <code>int64 film_id = 1;</code>
    * @return The filmId.
    */
@@ -66,10 +58,6 @@ private static final long serialVersionUID = 0L;
   @SuppressWarnings("serial")
   private volatile java.lang.Object title_ = "";
   /**
-   * <pre>
-   * Название фильма
-   * </pre>
-   *
    * <code>string title = 2;</code>
    * @return The title.
    */
@@ -87,10 +75,6 @@ private static final long serialVersionUID = 0L;
     }
   }
   /**
-   * <pre>
-   * Название фильма
-   * </pre>
-   *
    * <code>string title = 2;</code>
    * @return The bytes for title.
    */
@@ -113,10 +97,6 @@ private static final long serialVersionUID = 0L;
   @SuppressWarnings("serial")
   private volatile java.lang.Object genre_ = "";
   /**
-   * <pre>
-   * Жанр (Роман, Поэма, Пьеса...)
-   * </pre>
-   *
    * <code>string genre = 3;</code>
    * @return The genre.
    */
@@ -134,10 +114,6 @@ private static final long serialVersionUID = 0L;
     }
   }
   /**
-   * <pre>
-   * Жанр (Роман, Поэма, Пьеса...)
-   * </pre>
-   *
    * <code>string genre = 3;</code>
    * @return The bytes for genre.
    */
@@ -159,10 +135,6 @@ private static final long serialVersionUID = 0L;
   public static final int PUBLISHED_YEAR_FIELD_NUMBER = 4;
   private int publishedYear_ = 0;
   /**
-   * <pre>
-   * Год выхода
-   * </pre>
-   *
    * <code>int32 published_year = 4;</code>
    * @return The publishedYear.
    */
@@ -175,10 +147,6 @@ private static final long serialVersionUID = 0L;
   @SuppressWarnings("serial")
   private volatile java.lang.Object language_ = "";
   /**
-   * <pre>
-   * Язык (ru, en...)
-   * </pre>
-   *
    * <code>string language = 5;</code>
    * @return The language.
    */
@@ -196,10 +164,6 @@ private static final long serialVersionUID = 0L;
     }
   }
   /**
-   * <pre>
-   * Язык (ru, en...)
-   * </pre>
-   *
    * <code>string language = 5;</code>
    * @return The bytes for language.
    */
@@ -222,10 +186,6 @@ private static final long serialVersionUID = 0L;
   @SuppressWarnings("serial")
   private volatile java.lang.Object directorName_ = "";
   /**
-   * <pre>
-   * Имя режиссёра (для контекста анализа)
-   * </pre>
-   *
    * <code>string director_name = 6;</code>
    * @return The directorName.
    */
@@ -243,10 +203,6 @@ private static final long serialVersionUID = 0L;
     }
   }
   /**
-   * <pre>
-   * Имя режиссёра (для контекста анализа)
-   * </pre>
-   *
    * <code>string director_name = 6;</code>
    * @return The bytes for directorName.
    */
@@ -475,10 +431,6 @@ private static final long serialVersionUID = 0L;
     return builder;
   }
   /**
-   * <pre>
-   * Запрос на анализ фильма — данные, необходимые для вычисления метрик.
-   * </pre>
-   *
    * Protobuf type {@code filmanalytics.AnalyzeFilmRequest}
    */
   public static final class Builder extends
@@ -716,10 +668,6 @@ private static final long serialVersionUID = 0L;
 
     private long filmId_ ;
     /**
-     * <pre>
-     * ID фильма в системе
-     * </pre>
-     *
      * <code>int64 film_id = 1;</code>
      * @return The filmId.
      */
@@ -728,10 +676,6 @@ private static final long serialVersionUID = 0L;
       return filmId_;
     }
     /**
-     * <pre>
-     * ID фильма в системе
-     * </pre>
-     *
      * <code>int64 film_id = 1;</code>
      * @param value The filmId to set.
      * @return This builder for chaining.
@@ -744,10 +688,6 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <pre>
-     * ID фильма в системе
-     * </pre>
-     *
      * <code>int64 film_id = 1;</code>
      * @return This builder for chaining.
      */
@@ -760,10 +700,6 @@ private static final long serialVersionUID = 0L;
 
     private java.lang.Object title_ = "";
     /**
-     * <pre>
-     * Название фильма
-     * </pre>
-     *
      * <code>string title = 2;</code>
      * @return The title.
      */
@@ -780,10 +716,6 @@ private static final long serialVersionUID = 0L;
       }
     }
     /**
-     * <pre>
-     * Название фильма
-     * </pre>
-     *
      * <code>string title = 2;</code>
      * @return The bytes for title.
      */
@@ -801,10 +733,6 @@ private static final long serialVersionUID = 0L;
       }
     }
     /**
-     * <pre>
-     * Название фильма
-     * </pre>
-     *
      * <code>string title = 2;</code>
      * @param value The title to set.
      * @return This builder for chaining.
@@ -818,10 +746,6 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <pre>
-     * Название фильма
-     * </pre>
-     *
      * <code>string title = 2;</code>
      * @return This builder for chaining.
      */
@@ -832,10 +756,6 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <pre>
-     * Название фильма
-     * </pre>
-     *
      * <code>string title = 2;</code>
      * @param value The bytes for title to set.
      * @return This builder for chaining.
@@ -852,10 +772,6 @@ private static final long serialVersionUID = 0L;
 
     private java.lang.Object genre_ = "";
     /**
-     * <pre>
-     * Жанр (Роман, Поэма, Пьеса...)
-     * </pre>
-     *
      * <code>string genre = 3;</code>
      * @return The genre.
      */
@@ -872,10 +788,6 @@ private static final long serialVersionUID = 0L;
       }
     }
     /**
-     * <pre>
-     * Жанр (Роман, Поэма, Пьеса...)
-     * </pre>
-     *
      * <code>string genre = 3;</code>
      * @return The bytes for genre.
      */
@@ -893,10 +805,6 @@ private static final long serialVersionUID = 0L;
       }
     }
     /**
-     * <pre>
-     * Жанр (Роман, Поэма, Пьеса...)
-     * </pre>
-     *
      * <code>string genre = 3;</code>
      * @param value The genre to set.
      * @return This builder for chaining.
@@ -910,10 +818,6 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <pre>
-     * Жанр (Роман, Поэма, Пьеса...)
-     * </pre>
-     *
      * <code>string genre = 3;</code>
      * @return This builder for chaining.
      */
@@ -924,10 +828,6 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <pre>
-     * Жанр (Роман, Поэма, Пьеса...)
-     * </pre>
-     *
      * <code>string genre = 3;</code>
      * @param value The bytes for genre to set.
      * @return This builder for chaining.
@@ -944,10 +844,6 @@ private static final long serialVersionUID = 0L;
 
     private int publishedYear_ ;
     /**
-     * <pre>
-     * Год выхода
-     * </pre>
-     *
      * <code>int32 published_year = 4;</code>
      * @return The publishedYear.
      */
@@ -956,10 +852,6 @@ private static final long serialVersionUID = 0L;
       return publishedYear_;
     }
     /**
-     * <pre>
-     * Год выхода
-     * </pre>
-     *
      * <code>int32 published_year = 4;</code>
      * @param value The publishedYear to set.
      * @return This builder for chaining.
@@ -972,10 +864,6 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <pre>
-     * Год выхода
-     * </pre>
-     *
      * <code>int32 published_year = 4;</code>
      * @return This builder for chaining.
      */
@@ -988,10 +876,6 @@ private static final long serialVersionUID = 0L;
 
     private java.lang.Object language_ = "";
     /**
-     * <pre>
-     * Язык (ru, en...)
-     * </pre>
-     *
      * <code>string language = 5;</code>
      * @return The language.
      */
@@ -1008,10 +892,6 @@ private static final long serialVersionUID = 0L;
       }
     }
     /**
-     * <pre>
-     * Язык (ru, en...)
-     * </pre>
-     *
      * <code>string language = 5;</code>
      * @return The bytes for language.
      */
@@ -1029,10 +909,6 @@ private static final long serialVersionUID = 0L;
       }
     }
     /**
-     * <pre>
-     * Язык (ru, en...)
-     * </pre>
-     *
      * <code>string language = 5;</code>
      * @param value The language to set.
      * @return This builder for chaining.
@@ -1046,10 +922,6 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <pre>
-     * Язык (ru, en...)
-     * </pre>
-     *
      * <code>string language = 5;</code>
      * @return This builder for chaining.
      */
@@ -1060,10 +932,6 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <pre>
-     * Язык (ru, en...)
-     * </pre>
-     *
      * <code>string language = 5;</code>
      * @param value The bytes for language to set.
      * @return This builder for chaining.
@@ -1080,10 +948,6 @@ private static final long serialVersionUID = 0L;
 
     private java.lang.Object directorName_ = "";
     /**
-     * <pre>
-     * Имя режиссёра (для контекста анализа)
-     * </pre>
-     *
      * <code>string director_name = 6;</code>
      * @return The directorName.
      */
@@ -1100,10 +964,6 @@ private static final long serialVersionUID = 0L;
       }
     }
     /**
-     * <pre>
-     * Имя режиссёра (для контекста анализа)
-     * </pre>
-     *
      * <code>string director_name = 6;</code>
      * @return The bytes for directorName.
      */
@@ -1121,10 +981,6 @@ private static final long serialVersionUID = 0L;
       }
     }
     /**
-     * <pre>
-     * Имя режиссёра (для контекста анализа)
-     * </pre>
-     *
      * <code>string director_name = 6;</code>
      * @param value The directorName to set.
      * @return This builder for chaining.
@@ -1138,10 +994,6 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <pre>
-     * Имя режиссёра (для контекста анализа)
-     * </pre>
-     *
      * <code>string director_name = 6;</code>
      * @return This builder for chaining.
      */
@@ -1152,10 +1004,6 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <pre>
-     * Имя режиссёра (для контекста анализа)
-     * </pre>
-     *
      * <code>string director_name = 6;</code>
      * @param value The bytes for directorName to set.
      * @return This builder for chaining.

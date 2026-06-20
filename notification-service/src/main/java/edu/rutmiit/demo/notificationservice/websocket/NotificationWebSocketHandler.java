@@ -12,28 +12,11 @@ import java.io.IOException;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
-/**
- * WebSocket-обработчик для рассылки уведомлений.
- *
- * Поддерживает потокобезопасный реестр подключённых сессий и
- * broadcast-метод для отправки JSON всем клиентам одновременно.
- *
- * Нативный Spring WebSocket.
- * Клиент использует стандартный браузерный API: new WebSocket(...).
- *
- * При подключении отправляет приветственное сообщение с количеством
- * активных подключений. При отправке обрабатывает обрывы (IOException)
- * и автоматически удаляет «мёртвые» сессии.
- */
 @Component
 public class NotificationWebSocketHandler extends TextWebSocketHandler {
 
     private static final Logger log = LoggerFactory.getLogger(NotificationWebSocketHandler.class);
 
-    /**
-     * Потокобезопасный реестр активных WebSocket-сессий.
-     * ConcurrentHashMap.newKeySet() — Set на основе ConcurrentHashMap.
-     */
     private final Set<WebSocketSession> sessions = ConcurrentHashMap.newKeySet();
 
     @Override
@@ -41,7 +24,6 @@ public class NotificationWebSocketHandler extends TextWebSocketHandler {
         sessions.add(session);
         log.info("WebSocket подключён: {} (всего: {})", session.getId(), sessions.size());
 
-        // Приветственное сообщение — клиент узнаёт, что подключение активно
         String welcome = """
                 {"type":"CONNECTED","message":"Подключено к Notification Service","activeConnections":%d}"""
                 .formatted(sessions.size());
@@ -57,7 +39,7 @@ public class NotificationWebSocketHandler extends TextWebSocketHandler {
 
     @Override
     protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
-        // Клиент может отправить ping — отвечаем pong
+
         String payload = message.getPayload();
         if ("ping".equalsIgnoreCase(payload.trim())) {
             session.sendMessage(new TextMessage("{\"type\":\"PONG\"}"));
@@ -70,14 +52,6 @@ public class NotificationWebSocketHandler extends TextWebSocketHandler {
         sessions.remove(session);
     }
 
-    /**
-     * Отправить JSON-сообщение всем подключённым клиентам.
-     *
-     * Обрабатывает IOException для каждой сессии отдельно —
-     * один «мёртвый» клиент не блокирует остальных.
-     *
-     * @param json строка JSON для отправки
-     */
     public void broadcast(String json) {
         if (sessions.isEmpty()) {
             return;
@@ -106,9 +80,6 @@ public class NotificationWebSocketHandler extends TextWebSocketHandler {
         log.debug("Broadcast: отправлено {}, ошибок {}", sent, failed);
     }
 
-    /**
-     * Количество активных подключений (для мониторинга).
-     */
     public int getActiveConnectionCount() {
         return sessions.size();
     }

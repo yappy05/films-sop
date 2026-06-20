@@ -1,51 +1,30 @@
-// Контракт gRPC-сервиса аналитики фильмов
-//
-// Определяет сервис FilmAnalytics с одним RPC-методом AnalyzeFilm.
-// Из этого файла protoc + protoc-gen-grpc-java генерируют:
-// Классы сообщений - AnalyzeFilmRequest, FilmAnalysisResponse
-// Серверный базовый класс FilmAnalyticsGrpc.FilmAnalyticsImplBase
-// Клиентские стабы FilmAnalyticsGrpc.FilmAnalyticsBlockingStub
 
 syntax = "proto3";
 
-// Java-пакет для сгенерированных классов
 option java_package = "edu.rutmiit.demo.grpc";
 
-// Все сгенерированные классы будут в отдельных файлах (не во вложенных классах)
 option java_multiple_files = true;
 
-// Пакет proto (для именования в других .proto файлах при импорте)
 package filmanalytics;
 
-// Сервисы
-// Unary RPC - один запрос это один ответ (типа аналог REST GET/POST)
 service FilmAnalytics {
 
-    // Анализирует фильм и возвращает вычисленные метрики
     rpc AnalyzeFilm (AnalyzeFilmRequest) returns (FilmAnalysisResponse);
 }
 
-// Сообщения
-// В proto3 все поля опциональны по умолчанию (zero-value = не задано).
-// Номера полей (1, 2, 3...) используются в бинарном формате —
-// они не должны меняться после релиза
-// чтобы не нарушить совместимость
-
-// Запрос на анализ фильма — данные, необходимые для вычисления метрик.
 message AnalyzeFilmRequest {
-    int64  film_id        = 1;  // ID фильма в системе
-    string title          = 2;  // Название фильма
-    string genre          = 3;  // Жанр (Роман, Поэма, Пьеса...)
-    int32  published_year = 4;  // Год выхода
-    string language       = 5;  // Язык (ru, en...)
-    string director_name    = 6;  // Имя режиссёра (для контекста анализа)
+    int64  film_id        = 1;
+    string title          = 2;
+    string genre          = 3;
+    int32  published_year = 4;
+    string language       = 5;
+    string director_name    = 6;
 }
 
-// Ответ с результатами анализа — вычисленные метрики фильма.
 message FilmAnalysisResponse {
-    int64  film_id                    = 1;  // ID фильма (echo back)
-    int32  estimated_reading_minutes  = 2;  // Оценка времени чтения (в минутах)
-    string difficulty_level           = 3;  // Уровень сложности: EASY, MEDIUM, HARD, CLASSIC
-    double recommendation_score       = 4;  // Рекомендательный балл (0.0 — 10.0)
-    string era_classification         = 5;  // Эпоха: ANCIENT, CLASSICAL, MODERN, CONTEMPORARY
+    int64  film_id                    = 1;
+    int32  estimated_reading_minutes  = 2;
+    string difficulty_level           = 3;
+    double recommendation_score       = 4;
+    string era_classification         = 5;
 }

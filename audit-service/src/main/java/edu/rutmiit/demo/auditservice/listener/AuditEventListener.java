@@ -15,18 +15,6 @@ import tools.jackson.databind.json.JsonMapper;
 
 import java.time.Instant;
 
-/**
- * Единый слушатель всех доменных событий из RabbitMQ.
- *
- * Принимает «сырое» AMQP-сообщение (Message) и десериализует его вручную.
- * Это необходимо, потому что EventEnvelope<T> — generic тип, и Jackson
- * не может определить конкретный подтип T при автоматической десериализации.
- *
- * Промышленная альтернатива:
- * - отдельные очереди для разных типов событий (не generic listener),
- * - Spring Cloud Stream с content-type routing,
- * - Apache Avro/Protobuf с Schema Registry.
- */
 @Component
 public class AuditEventListener {
 
@@ -40,31 +28,20 @@ public class AuditEventListener {
         this.jsonMapper = jsonMapper;
     }
 
-    /**
-     * Принимает все события из очереди q.audit.events.
-     *
-     * Десериализация выполняется в два этапа:
-     * 1. Парсим JSON в дерево узлов (JsonNode) — быстро и безопасно.
-     * 2. Извлекаем metadata и определяем тип payload по полю eventType.
-     * 3. Десериализуем payload в конкретный record по выявленному типу.
-     */
     @RabbitListener(queues = "q.audit.events", messageConverter = "")
     public void handleEvent(Message message) {
         try {
             byte[] body = message.getBody();
             JsonNode root = jsonMapper.readTree(body);
 
-            // Извлекаем метаданные из JSON-конверта
             JsonNode metaNode = root.get("metadata");
             EventMetadata metadata = jsonMapper.treeToValue(metaNode, EventMetadata.class);
 
-            // Дедупликация — если событие уже обработано, пропускаем
             if (auditStorage.isDuplicate(metadata.eventId())) {
                 log.warn("Дубликат события пропущен: eventId={}", metadata.eventId());
                 return;
             }
 
-            // Определяем тип события и формируем описание
             JsonNode payloadNode = root.get("payload");
             String description = buildDescription(metadata.eventType(), payloadNode);
 
@@ -82,17 +59,11 @@ public class AuditEventListener {
 
         } catch (Exception e) {
             log.error("Ошибка обработки события: {}", e.getMessage(), e);
-            // Исключение пробросится, сообщение уйдёт в DLQ после исчерпания retries
+
             throw new RuntimeException("Не удалось обработать событие", e);
         }
     }
 
-    /**
-     * Формирует человекочитаемое описание события для аудит-лога.
-     *
-     * Десериализует payload в конкретный тип на основе eventType,
-     * затем формирует описание через pattern matching по sealed interface.
-     */
     private String buildDescription(String eventType, JsonNode payloadNode) throws Exception {
         return switch (eventType) {
             case "film.created" -> {

@@ -81,7 +81,7 @@ public class DirectorController implements DirectorApi {
 
     @Override
     public PagedModel<EntityModel<FilmResponse>> getFilmsByDirector(Long id, int page, int size) {
-        // Проверяем что режиссёр существует (выбросит 404 если нет)
+
         directorService.findById(id);
         PagedResponse<FilmResponse> paged = filmService.findAllFilms(id, null, null, null, page, size);
         Page<FilmResponse> springPage = new PageImpl<>(

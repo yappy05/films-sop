@@ -1,6 +1,6 @@
-/Users/sergey/Documents/films-all/audit-service/src/main/java/edu/rutmiit/demo/auditservice/AuditServiceApplication.java
-/Users/sergey/Documents/films-all/audit-service/src/main/java/edu/rutmiit/demo/auditservice/config/RabbitMQConfig.java
-/Users/sergey/Documents/films-all/audit-service/src/main/java/edu/rutmiit/demo/auditservice/controller/AuditController.java
-/Users/sergey/Documents/films-all/audit-service/src/main/java/edu/rutmiit/demo/auditservice/listener/AuditEventListener.java
-/Users/sergey/Documents/films-all/audit-service/src/main/java/edu/rutmiit/demo/auditservice/model/AuditEntry.java
-/Users/sergey/Documents/films-all/audit-service/src/main/java/edu/rutmiit/demo/auditservice/storage/AuditStorage.java
+/Users/sergey/Documents/films-sop/audit-service/src/main/java/edu/rutmiit/demo/auditservice/AuditServiceApplication.java
+/Users/sergey/Documents/films-sop/audit-service/src/main/java/edu/rutmiit/demo/auditservice/config/RabbitMQConfig.java
+/Users/sergey/Documents/films-sop/audit-service/src/main/java/edu/rutmiit/demo/auditservice/controller/AuditController.java
+/Users/sergey/Documents/films-sop/audit-service/src/main/java/edu/rutmiit/demo/auditservice/listener/AuditEventListener.java
+/Users/sergey/Documents/films-sop/audit-service/src/main/java/edu/rutmiit/demo/auditservice/model/AuditEntry.java
+/Users/sergey/Documents/films-sop/audit-service/src/main/java/edu/rutmiit/demo/auditservice/storage/AuditStorage.java

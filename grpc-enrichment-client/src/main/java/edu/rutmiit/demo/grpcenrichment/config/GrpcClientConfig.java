@@ -11,21 +11,6 @@ import org.springframework.context.annotation.Configuration;
 
 import jakarta.annotation.PreDestroy;
 
-/**
- * Конфигурация gRPC-клиента — создание канала и стаба.
- * ManagedChannel — соединение с gRPC-сервером. Аналог HttpClient для REST.
- * - Управляет пулом TCP-соединений (HTTP/2 мультиплексирование)
- * - Поддерживает reconnect при обрыве
- * - Требует shutdown при завершении приложения (утечка ресурсов!)
- *
- * BlockingStub — синхронный клиентский стаб. Аналог RestTemplate для REST.
- * - Вызов метода блокирует поток до получения ответа
- * - Подходит для простых unary RPC
- * - Для async используется FilmAnalyticsGrpc.newFutureStub() или newStub()
- *
- * usePlaintext() — отключает TLS (В проде обязательно TLS с сертификатами).
- * Для лабы упростили...
- */
 @Configuration
 public class GrpcClientConfig {
 
@@ -39,40 +24,22 @@ public class GrpcClientConfig {
 
     private ManagedChannel channel;
 
-    /**
-     * ManagedChannel — HTTP/2 соединение с gRPC-сервером.
-     *
-     * Один канал может обслуживать множество одновременных RPC-вызовов
-     * благодаря мультиплексированию HTTP/2 (в отличие от HTTP/1.1,
-     * где каждый запрос требует отдельного TCP-соединения).
-     */
     @Bean
     public ManagedChannel managedChannel() {
         channel = ManagedChannelBuilder
                 .forAddress(grpcHost, grpcPort)
-                .usePlaintext()  // Без TLS — только для разработки!
+                .usePlaintext()
                 .build();
 
         log.info("gRPC канал создан: {}:{}", grpcHost, grpcPort);
         return channel;
     }
 
-    /**
-     * BlockingStub — синхронный клиент для вызова FilmAnalytics.AnalyzeFilm().
-     *
-     * Генерируется protoc из .proto файла. Типы аргументов и возвращаемых
-     * значений строго соответствуют proto-определению — ошибка типов
-     * обнаруживается при компиляции, а не в runtime.
-     */
     @Bean
     public FilmAnalyticsGrpc.FilmAnalyticsBlockingStub filmAnalyticsStub(ManagedChannel channel) {
         return FilmAnalyticsGrpc.newBlockingStub(channel);
     }
 
-    /**
-     * Корректное закрытие gRPC-канала при остановке приложения.
-     * Без этого — утечка TCP-соединений.
-     */
     @PreDestroy
     public void shutdown() {
         if (channel != null && !channel.isShutdown()) {

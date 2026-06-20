@@ -14,15 +14,6 @@ import java.time.Instant;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
-/**
- * Слушатель всех доменных событий из RabbitMQ.
- *
- * Получает события из очереди q.notifications.all (binding "#"),
- * формирует человекочитаемое JSON-уведомление и рассылает
- * всем подключённым WebSocket-клиентам через NotificationWebSocketHandler.
- *
- * Дедупликация — по eventId (на случай повторной доставки RabbitMQ).
- */
 @Component
 public class EventNotificationListener {
 
@@ -31,7 +22,6 @@ public class EventNotificationListener {
     private final NotificationWebSocketHandler webSocketHandler;
     private final JsonMapper jsonMapper;
 
-    /** Набор обработанных eventId для дедупликации. */
     private final Set<String> processedEventIds = ConcurrentHashMap.newKeySet();
 
     public EventNotificationListener(NotificationWebSocketHandler webSocketHandler,
@@ -46,24 +36,20 @@ public class EventNotificationListener {
             byte[] body = message.getBody();
             JsonNode root = jsonMapper.readTree(body);
 
-            // Парсим метаданные
             JsonNode metaNode = root.get("metadata");
             EventMetadata metadata = jsonMapper.treeToValue(metaNode, EventMetadata.class);
 
-            // Дедупликация по eventId 
             if (!processedEventIds.add(metadata.eventId())) {
                 log.warn("Дубликат уведомления пропущен: eventId={}", metadata.eventId());
                 return;
             }
 
-            // Формируем уведомление
             JsonNode payloadNode = root.get("payload");
             String title = buildTitle(metadata.eventType());
             String description = buildDescription(metadata.eventType(), payloadNode);
             String icon = resolveIcon(metadata.eventType());
             String level = resolveLevel(metadata.eventType());
 
-            // JSON для WebSocket-клиента 
             String notificationJson = jsonMapper.writeValueAsString(
                     new NotificationPayload(
                             "NOTIFICATION",
@@ -79,7 +65,6 @@ public class EventNotificationListener {
                     )
             );
 
-            // Broadcast в WebSocket
             webSocketHandler.broadcast(notificationJson);
 
             log.info("[NOTIFY] {} | {} (клиентов: {})",
@@ -90,8 +75,6 @@ public class EventNotificationListener {
             throw new RuntimeException("Не удалось обработать событие", e);
         }
     }
-
-    // Формирование заголовка уведомления
 
     private String buildTitle(String eventType) {
         return switch (eventType) {
@@ -104,8 +87,6 @@ public class EventNotificationListener {
             default               -> "Событие: " + eventType;
         };
     }
-
-    // Формирование описания
 
     private String buildDescription(String eventType, JsonNode payload) {
         try {
@@ -146,8 +127,6 @@ public class EventNotificationListener {
         }
     }
 
-    // Иконка по типу события
-
     private String resolveIcon(String eventType) {
         return switch (eventType) {
             case "film.created"   -> "film-plus";
@@ -160,8 +139,6 @@ public class EventNotificationListener {
         };
     }
 
-    // Уровень уведомления
-
     private String resolveLevel(String eventType) {
         return switch (eventType) {
             case "film.deleted", "director.deleted" -> "warning";
@@ -170,9 +147,6 @@ public class EventNotificationListener {
         };
     }
 
-    /**
-     * Payload уведомления для WebSocket.
-     */
     record NotificationPayload(
             String type,
             String eventId,

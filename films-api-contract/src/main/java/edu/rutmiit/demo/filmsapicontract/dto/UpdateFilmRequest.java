@@ -4,14 +4,7 @@ import edu.rutmiit.demo.filmsapicontract.validation.ValidImdbId;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.*;
 
-/**
- * Запрос для полного обновления фильма (PUT).
- *
- * Все обязательные поля должны быть переданы.
- * Режиссёра изменить нельзя — для смены режиссёра создайте новый фильм.
- * Для изменения только отдельных полей используйте PATCH (PatchFilmRequest).
- */
-@Schema(description = "Полное обновление фильма (PUT). Все обязательные поля должны присутствовать. "  
+@Schema(description = "Полное обновление фильма (PUT). Все обязательные поля должны присутствовать. "
         + "Режиссёр фильма не меняется.")
 public record UpdateFilmRequest(
 

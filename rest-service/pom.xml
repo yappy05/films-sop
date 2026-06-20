@@ -6,7 +6,7 @@
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
         <version>4.0.3</version>
-        <relativePath/> 
+        <relativePath/>
     </parent>
     <groupId>edu.rutmiit.demo</groupId>
     <artifactId>rest-service</artifactId>
@@ -37,7 +37,7 @@
 
     <dependencyManagement>
         <dependencies>
-            <!-- Netflix DGS — BOM для управления версиями всех GraphQL-зависимостей -->
+
             <dependency>
                 <groupId>com.netflix.graphql.dgs</groupId>
                 <artifactId>graphql-dgs-platform-dependencies</artifactId>
@@ -47,7 +47,7 @@
             </dependency>
         </dependencies>
     </dependencyManagement>
-   
+
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -57,7 +57,7 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
-        </dependency>       
+        </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-hateoas</artifactId>
@@ -80,38 +80,34 @@
             <groupId>jakarta.validation</groupId>
             <artifactId>jakarta.validation-api</artifactId>
             <version>3.1.1</version>
-        </dependency>        
+        </dependency>
 
         <dependency>
             <groupId>edu.rutmiit.demo</groupId>
             <artifactId>films-api-contract</artifactId>
             <version>1.0</version>
         </dependency>
-       
+
         <dependency>
             <groupId>jakarta.annotation</groupId>
             <artifactId>jakarta.annotation-api</artifactId>
         </dependency>
 
-        <!-- Netflix DGS — стартер для GraphQL на базе Spring for GraphQL -->
         <dependency>
             <groupId>com.netflix.graphql.dgs</groupId>
             <artifactId>graphql-dgs-spring-graphql-starter</artifactId>
         </dependency>
 
-        <!-- Расширенные скаляры GraphQL (DateTime, Date и другие) -->
         <dependency>
             <groupId>com.netflix.graphql.dgs</groupId>
             <artifactId>graphql-dgs-extended-scalars</artifactId>
         </dependency>
 
-        <!-- Spring AMQP — интеграция с RabbitMQ для публикации доменных событий -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-amqp</artifactId>
         </dependency>
 
-        <!-- Контракт доменных событий — общий между publisher и consumer -->
         <dependency>
             <groupId>edu.rutmiit.demo</groupId>
             <artifactId>films-events-contract</artifactId>
@@ -127,7 +123,7 @@
                 <version>1.7.1</version>
             </extension>
         </extensions>
-        <plugins>            
+        <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>

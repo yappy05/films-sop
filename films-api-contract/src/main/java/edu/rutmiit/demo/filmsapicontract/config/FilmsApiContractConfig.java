@@ -7,15 +7,6 @@ import io.swagger.v3.oas.annotations.info.Info;
 import io.swagger.v3.oas.annotations.security.SecurityScheme;
 import io.swagger.v3.oas.annotations.servers.Server;
 
-/**
- * Центральная OpenAPI-конфигурация контракта Films API.
- *
- * Это не Spring-бин — здесь нет @Component или @Configuration.
- * Библиотека springdoc-openapi сканирует classpath и автоматически подхватывает
- * аннотацию @OpenAPIDefinition, когда контракт подключён как зависимость.
- * Сервис-реализатор не дублирует описание API — он просто добавляет jar и получает
- * готовый Swagger UI.
- */
 @OpenAPIDefinition(
         info = @Info(
                 title = "Films API",
@@ -37,12 +28,9 @@ import io.swagger.v3.oas.annotations.servers.Server;
 )
 public final class FilmsApiContractConfig {
 
-    /**
-     * Имя схемы безопасности. Используется в аннотациях @SecurityRequirement на методах API.
-     */
     public static final String SECURITY_SCHEME_BEARER = "bearerAuth";
 
     private FilmsApiContractConfig() {
-        // utility class
+
     }
 }

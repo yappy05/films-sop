@@ -79,8 +79,6 @@ public class FilmService {
                 .build();
         storage.films.put(id, film);
 
-        // Публикуем доменное событие ПОСЛЕ успешного сохранения.
-        // Если RabbitMQ недоступен — фильм всё равно создана, событие просто потеряется.
         eventPublisher.publishCreated(film);
 
         return film;
@@ -110,7 +108,6 @@ public class FilmService {
     public FilmResponse patchFilm(Long id, PatchFilmRequest request) {
         FilmResponse existing = findFilmById(id);
 
-        // IMDb ID меняется — проверяем уникальность, исключая текущую фильм
         if (request.imdbId() != null && !request.imdbId().equalsIgnoreCase(existing.getImdbId())) {
             validateImdbId(request.imdbId(), id);
         }

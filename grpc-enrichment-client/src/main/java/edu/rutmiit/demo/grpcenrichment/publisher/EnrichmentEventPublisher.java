@@ -8,13 +8,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.stereotype.Component;
 
-/**
- * Публикация событий обогащения (film.enriched) в RabbitMQ.
- *
- * Аналогичен FilmEventPublisher в rest-service, но публикует другой тип события.
- * Паттерн fire-and-forget: если RabbitMQ недоступен, ошибка логируется,
- * но gRPC-вызов уже выполнен — результат не теряется полностью.
- */
 @Component
 public class EnrichmentEventPublisher {
 
@@ -27,9 +20,6 @@ public class EnrichmentEventPublisher {
         this.rabbitTemplate = rabbitTemplate;
     }
 
-    /**
-     * Публикует событие film.enriched с результатами gRPC-аналитики.
-     */
     public void publishEnriched(FilmEvent.Enriched enrichedEvent) {
         try {
             EventEnvelope<FilmEvent> envelope = EventEnvelope.wrap(

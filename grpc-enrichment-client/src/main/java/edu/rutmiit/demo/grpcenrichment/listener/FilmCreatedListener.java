@@ -14,12 +14,6 @@ import org.springframework.stereotype.Component;
 import tools.jackson.databind.JsonNode;
 import tools.jackson.databind.json.JsonMapper;
 
-/**
- * Слушатель событий film.created из RabbitMQ.
- *
- * Десериализация — ручная (как в audit-service), потому что EventEnvelope<T>
- * является generic-типом, и Jackson не может определить конкретный подтип T.
- */
 @Component
 public class FilmCreatedListener {
 
@@ -37,17 +31,10 @@ public class FilmCreatedListener {
         this.jsonMapper = jsonMapper;
     }
 
-    /**
-     * Обрабатывает событие film.created:
-     * 1. Десериализует событие из JSON
-     * 2. Формирует gRPC-запрос
-     * 3. Вызывает gRPC-сервер (синхронно)
-     * 4. Публикует результат как событие film.enriched
-     */
     @RabbitListener(queues = "q.enrichment.film-created", messageConverter = "")
     public void handleFilmCreated(Message message) {
         try {
-            // 1. Парсим JSON-конверт
+
             byte[] body = message.getBody();
             JsonNode root = jsonMapper.readTree(body);
 
@@ -60,7 +47,6 @@ public class FilmCreatedListener {
             log.info("Получено событие film.created: filmId={}, «{}» [eventId={}]",
                     filmCreated.filmId(), filmCreated.title(), metadata.eventId());
 
-            // 2. Формируем gRPC-запрос
             AnalyzeFilmRequest grpcRequest = AnalyzeFilmRequest.newBuilder()
                     .setFilmId(filmCreated.filmId())
                     .setTitle(filmCreated.title())
@@ -69,7 +55,6 @@ public class FilmCreatedListener {
                     .setDirectorName(filmCreated.directorFullName() != null ? filmCreated.directorFullName() : "")
                     .build();
 
-            // 3. Вызываем gRPC-сервер (синхронно)
             log.info("Вызов gRPC: FilmAnalytics.AnalyzeFilm(filmId={})", filmCreated.filmId());
             FilmAnalysisResponse grpcResponse = analyticsStub.analyzeFilm(grpcRequest);
 
@@ -80,7 +65,6 @@ public class FilmCreatedListener {
                     grpcResponse.getRecommendationScore(),
                     grpcResponse.getEraClassification());
 
-            // 4. Публикуем событие film.enriched
             FilmEvent.Enriched enrichedEvent = new FilmEvent.Enriched(
                     grpcResponse.getFilmId(),
                     filmCreated.title(),

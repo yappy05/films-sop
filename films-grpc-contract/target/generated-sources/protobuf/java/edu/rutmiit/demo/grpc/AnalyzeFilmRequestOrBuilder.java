@@ -9,29 +9,17 @@ public interface AnalyzeFilmRequestOrBuilder extends
     com.google.protobuf.MessageOrBuilder {
 
   /**
-   * <pre>
-   * ID фильма в системе
-   * </pre>
-   *
    * <code>int64 film_id = 1;</code>
    * @return The filmId.
    */
   long getFilmId();
 
   /**
-   * <pre>
-   * Название фильма
-   * </pre>
-   *
    * <code>string title = 2;</code>
    * @return The title.
    */
   java.lang.String getTitle();
   /**
-   * <pre>
-   * Название фильма
-   * </pre>
-   *
    * <code>string title = 2;</code>
    * @return The bytes for title.
    */
@@ -39,19 +27,11 @@ public interface AnalyzeFilmRequestOrBuilder extends
       getTitleBytes();
 
   /**
-   * <pre>
-   * Жанр (Роман, Поэма, Пьеса...)
-   * </pre>
-   *
    * <code>string genre = 3;</code>
    * @return The genre.
    */
   java.lang.String getGenre();
   /**
-   * <pre>
-   * Жанр (Роман, Поэма, Пьеса...)
-   * </pre>
-   *
    * <code>string genre = 3;</code>
    * @return The bytes for genre.
    */
@@ -59,29 +39,17 @@ public interface AnalyzeFilmRequestOrBuilder extends
       getGenreBytes();
 
   /**
-   * <pre>
-   * Год выхода
-   * </pre>
-   *
    * <code>int32 published_year = 4;</code>
    * @return The publishedYear.
    */
   int getPublishedYear();
 
   /**
-   * <pre>
-   * Язык (ru, en...)
-   * </pre>
-   *
    * <code>string language = 5;</code>
    * @return The language.
    */
   java.lang.String getLanguage();
   /**
-   * <pre>
-   * Язык (ru, en...)
-   * </pre>
-   *
    * <code>string language = 5;</code>
    * @return The bytes for language.
    */
@@ -89,19 +57,11 @@ public interface AnalyzeFilmRequestOrBuilder extends
       getLanguageBytes();
 
   /**
-   * <pre>
-   * Имя режиссёра (для контекста анализа)
-   * </pre>
-   *
    * <code>string director_name = 6;</code>
    * @return The directorName.
    */
   java.lang.String getDirectorName();
   /**
-   * <pre>
-   * Имя режиссёра (для контекста анализа)
-   * </pre>
-   *
    * <code>string director_name = 6;</code>
    * @return The bytes for directorName.
    */

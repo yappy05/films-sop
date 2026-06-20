@@ -10,13 +10,6 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 import java.util.Map;
 
-/**
- * REST-контроллер для просмотра журнала аудита.
- *
- * Этот endpoint предназначен для администраторов и демонстрации —
- * в промышленной системе аудит-лог обычно доступен через Kibana/Grafana,
- * а не через REST API.
- */
 @RestController
 @RequestMapping("/api/audit")
 public class AuditController {
@@ -27,11 +20,6 @@ public class AuditController {
         this.auditStorage = auditStorage;
     }
 
-    /**
-     * Возвращает последние аудит-записи.
-     *
-     * Пример: GET /api/audit?limit=50
-     */
     @GetMapping
     public Map<String, Object> getAuditLog(
             @RequestParam(defaultValue = "100") int limit) {
